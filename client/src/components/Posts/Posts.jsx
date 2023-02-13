@@ -5,6 +5,14 @@ import Post from "../Post/Post";
 import { useEffect } from "react";
 import { getTimelinePosts } from "../../actions/postAction";
 import { useParams } from "react-router";
+import NoPost from "../NoPost/NoPost";
+import FadeLoader from "react-spinners/FadeLoader";
+import AllCaughtUp from "../AllCaughtUp/AllCaughtUp";
+
+const override = {
+    display: "block",
+    margin: "0 auto",
+};
 
 const Posts = () => {
     const params = useParams();
@@ -12,20 +20,23 @@ const Posts = () => {
     const { user } = useSelector((state) => state.authReducer.authData);
     let { posts, loading } = useSelector((state) => state.postReducer);
 
-    posts = posts.filter((post) => post.removed === false)
+    posts = posts.filter((post) => post.removed === false);
 
     useEffect(() => {
         dispatch(getTimelinePosts(user._id));
     }, []);
-    if (!posts) return "No posts";
     if (params.id) posts = posts.filter((post) => post.userId === params.id);
     return (
         <div className="Posts">
-            {loading
-                ? "Fetching Posts.."
-                : posts.map((post, id) => {
-                      return <Post data={post} id={id} />;
-                  })}
+            {loading ? (
+                <FadeLoader color="black" cssOverride={override} loading={loading} />
+            ) : (
+                posts.map((post, id) => {
+                    return <Post data={post} id={id} />;
+                })
+            )}
+        {posts.length === 0 && !loading && <NoPost />}
+        {posts.length > 0 && !loading && <AllCaughtUp /> }
         </div>
     );
 };

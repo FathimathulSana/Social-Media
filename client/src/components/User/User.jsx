@@ -35,7 +35,7 @@ const User = ({person,list,id}) => {
         <img src={person.coverPicture? serverPublic + person.profilePicture:serverPublic + "defaultProfile.jpg"} alt="" className="followerImg" />
         <div className="name">
             <span>{person.firstname} {person.lastname}<span>{person ?.isFamous ==="true"?<img className="verifiedBlueTick" src={Bluetick} alt="" /> : ""}</span></span>
-            <span>{person.username}</span>
+            <span>@{person.username}</span>
         </div>
     </div>
     <button className={user.following.includes(person._id) ? "button fc-button UnfollowButton": "button fc-button"}onClick={handleFollow}>{following?"Unfollow":"Follow"}</button>

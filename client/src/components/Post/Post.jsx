@@ -80,14 +80,14 @@ const Post = ({ data }) => {
                         <b style={{ marginLeft: "5px", cursor: "pointer" }}>{owner?.username}</b>
                     </div>
                 {data.userId !== user._id && (
-                    <img src={Img} alt="" onClick={reportPostFn} style={{ width: "25px",height:"25px", cursor: "pointer" }} />
+                    <img src={Img} alt="" onClick={reportPostFn} style={{marginTop:'18px', width: "25px",height:"25px", cursor: "pointer" }} />
                 )}
                 {data.userId === user._id && (
                 
                     <img
                         src={deletButton}
                         onClick={() => setModalOpen((prev) => !prev)}
-                        style={{ width: "25px", height: "25px",cursor:"pointer"}}
+                        style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}
                         alt=""
                     />
                    

@@ -2,6 +2,7 @@ import { Modal, Radio  } from '@mantine/core';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { reportPost } from '../../actions/postAction';
+import toast from 'react-hot-toast'
 
 import './ReportPostModal.css'
 
@@ -9,6 +10,10 @@ function ReportPostModal({reportPostModalOpen,setReportPostModalOpen,userId,post
     const [value, setValue] = useState(null)
     const dispatch = useDispatch()
     const reportThisPost=async()=>{
+      if(!value){
+        return toast.error("Select one of the Reason below")
+  
+      }
        const reportData = {
         reportedUser:userId,
         reason:value
