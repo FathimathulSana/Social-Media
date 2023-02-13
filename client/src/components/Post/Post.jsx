@@ -14,6 +14,10 @@ import ReportPostModal from "../ReportPostModal/ReportPostModal";
 import Img from "../../img/reportPost.png";
 import deletButton from "../../img/deleteButton.png";
 import PostDeleteModal from "../PostDeleteModal/PostDeleteModal";
+import {FiMoreVertical} from "react-icons/fi"
+import {AiFillEdit} from 'react-icons/ai'
+import {Dropdown} from 'antd'
+import PostEditModal from "../PostEditModal/PostEditModal";
 
 const Post = ({ data }) => {
     const dispatch = useDispatch();
@@ -22,12 +26,11 @@ const Post = ({ data }) => {
     const [liked, setLiked] = useState(data.likes.includes(user._id));
     const [likes, setLikes] = useState(data.likes.length);
     const [owner, setOwner] = useState(null);
-    const [edit, setEdit] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [reportPostModalOpen, setReportPostModalOpen] = useState(false);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
     const serverVideos = process.env.REACT_APP_PUBLIC_VIDEOS;
-   console.log(serverVideos,"videos indo")
 
 
     // const editSubmit = async() => {
@@ -59,6 +62,28 @@ const Post = ({ data }) => {
         setReportPostModalOpen(true);
     };
 
+    const items = [
+        {
+          key: "1",
+          label: (
+            <img
+            src={deletButton}
+            onClick={() => setModalOpen((prev) => !prev)}
+            style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}
+            alt=""
+        />
+          ),
+        },
+        {
+            key: "2",
+            label: (
+          <AiFillEdit 
+          onClick={() => setEditModalOpen((prev) => !prev)}
+          style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}/>
+            ),
+          },
+      ];
+
     return (
         <div className="Post">
             <div className="abovePostPic">
@@ -79,20 +104,39 @@ const Post = ({ data }) => {
                         />
                         <b style={{ marginLeft: "5px", cursor: "pointer" }}>{owner?.username}</b>
                     </div>
+
+
                 {data.userId !== user._id && (
                     <img src={Img} alt="" onClick={reportPostFn} style={{marginTop:'18px', width: "25px",height:"25px", cursor: "pointer" }} />
                 )}
                 {data.userId === user._id && (
                 
-                    <img
-                        src={deletButton}
-                        onClick={() => setModalOpen((prev) => !prev)}
-                        style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}
-                        alt=""
-                    />
+                <div className="post-head-right">
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  placement="bottomRight"
+                  arrow={{
+                    pointAtCenter: true,
+                  }}
+                >
+                  <button
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    <FiMoreVertical size={27} color={"black"} style={{marginTop:'18px',cursor: "pointer" }} />
+                  </button>
+                </Dropdown>
+              </div>
                    
                
             )}
+
+
                 </div>
                        <div className="postTime">Posted {format(data.createdAt)}</div>
             </div>
@@ -113,7 +157,14 @@ const Post = ({ data }) => {
                     currentUser={user._id}
                 />
                 }
-
+                {
+                    <PostEditModal
+                    editModalOpen={editModalOpen}
+                    setEditModalOpen={setEditModalOpen}
+                    userId={user._id}
+                    postId={data._id}
+                />
+            }
             
             {/* <Modal
               opened={edit}

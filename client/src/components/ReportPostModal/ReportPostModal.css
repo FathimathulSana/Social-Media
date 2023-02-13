@@ -14,4 +14,8 @@
     width: 4rem;
     height: 2rem;
     cursor: pointer;
+    color: white;
+}
+.Input{
+    background-color: var(--inputColor);
 }

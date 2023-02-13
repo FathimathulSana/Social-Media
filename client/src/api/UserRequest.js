@@ -22,7 +22,8 @@ export const unFollowUser = (id, data) => API.put(`/user/${id}/unfollow`, data)
 
 export const createChat = ((data) => API.post('/chat/', data));
 
-// export const editPost = (postId,data) => API.post(`/post/edit/post`,data)
+export const editPost = (postId,data) => API.post(`/post/edit/post`,data)
+
 export const sendVerifiyRequest = (userId) => API.post(`/user/isfamousrequest/${userId}`)
 
 //request by admin
