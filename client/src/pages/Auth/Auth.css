@@ -1,0 +1,138 @@
+.Auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 4rem;
+    position: relative;
+}
+
+.Auth>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*left side*/
+.a-left {
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.a-left>h6 {
+    margin-top: -60px;
+    margin-right: 15px;
+
+}
+
+.a-left>img {
+    width: 70%;
+    height: 70%;
+}
+
+.infoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.infoInput {
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+}
+.infoInputLogin{
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+    width: 382px;
+}
+
+.infoForm>div {
+    display: flex;
+    gap: 1rem;
+    height: 2rem;
+    width: 90%;
+}
+
+.infoButton {
+    width: 6rem;
+    height: 2rem;
+    align-self: flex-end;
+}
+
+.authForm {
+    background-color: var(--cardColor);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.authForm>div {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width:1010px) {
+    .Auth {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .a-left {
+        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .a-left>h6 {
+        margin-top: -50px;
+        margin-right: -40px;
+
+    }
+
+    .a-left>img {
+        width: 80%;
+        height: 70%;
+    }
+
+}
+
+@media only screen and (max-width:670px) {
+    .infoButton {
+        width: 10rem;
+        height: 2rem;
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width:670px) {
+    .Auth {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+@media only screen and (max-width:360px) {
+    .Auth {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .a-left>h6 {
+        margin-top: -45px;
+        margin-right: -45px;
+
+    }
+
+}

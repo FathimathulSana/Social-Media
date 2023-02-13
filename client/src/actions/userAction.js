@@ -1,0 +1,119 @@
+import * as UserApi from '../api/UserRequest'
+
+export const updateUser = (id, formData) => async (dispatch) => {
+    dispatch({ type: "UPDATING_START" })
+    try {
+        const { data } = await UserApi.updateUser(id, formData);
+        dispatch({ type: "UPDATING_SUCCESS", data: data })
+    } catch (error) {
+        dispatch({ type: "UPDATING_FAIL" })
+    }
+}
+
+export const followUser = (id, data) => async (dispatch) => {
+    dispatch({ type: "FOLLOW_USER", data: id })
+    UserApi.followUser(id, data)
+}
+
+export const unFollowUser = (id, data) => async (dispatch) => {
+    dispatch({ type: "UNFOLLOW_USER", data: id })
+    UserApi.unFollowUser(id, data)
+}
+
+
+export const getUser = (id) => async (dispatch) => {
+    dispatch({ type: "FETCH_USER_DETAILS" })
+
+    try {
+        const { data } = await UserApi.getUser(id)
+        dispatch({ type: "USER_DETAILS_FETCHED", data: data })
+    } catch (error) {
+        dispatch({ type: "USER_DETAILS_FETCHING_FAIL" })
+        if (error.response.data === "token expired") {
+            dispatch({ type: "LOG_OUT" })
+        }
+    }
+}
+
+
+
+export const sendVerifiyRequest = (userId) => async (dispatch) => {
+    try {
+        const response = await UserApi.sendVerifiyRequest(userId)
+        dispatch({ type: "SEND_ISFAMOUS_REQUEST" })
+    } catch (error) {
+        if (error.response.data === "token expired") {
+            dispatch({ type: "LOG_OUT" })
+        }
+    }
+}
+
+
+export const blockUser = (id, active) => async (dispatch) => {
+    try {
+        return UserApi.blockUser(id, active)
+    } catch (error) {
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "ADMIN_LOG_OUT" })
+        }
+    }
+}
+
+export const getVerifyNotifications = () => async (dispatch) => {
+    try {
+        return UserApi.getVerifyNotifications()
+    } catch (error) {
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "ADMIN_LOG_OUT" })
+        }
+    }
+}
+
+
+export const makeIsFamous = (id) => async (dispatch) => {
+    try {
+        return await UserApi.makeIsFamous(id)
+    } catch (error) {
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "ADMIN_LOG_OUT" })
+        }
+    }
+}
+export const getUserData = (query) => async (dispatch) => {
+    try {
+        return await UserApi.getUserData(query)
+    } catch (error) {
+        if (error.response.data === "token expired") {
+            dispatch({ type: "LOG_OUT" })
+        }
+    }
+}
+
+export const getAllUser = () => async (dispatch) => {
+    dispatch({ type: "FETCH_ALL_USERS" })
+    try {
+        const { data } = await UserApi.getAllUser();
+        console.log(data, "success aaykka");
+        dispatch({ type: "ALL_USERS_FETCHED", data: data })
+    } catch (error) {
+        dispatch({ type: "ALL_USERS_FETCHING_FAIL" })
+        console.log(error, "ivide common");
+    }
+}
+
+// export const getUser = (id) => async (dispatch) => {
+//     dispatch({ type: "FETCH_USER_DETAILS" })
+
+//     try {
+//         const { data } = await UserApi.getUser(id)
+//         dispatch({ type: "USER_DETAILS_FETCHED", data: data })
+//     } catch (error) {
+//         dispatch({ type: "USER_DETAILS_FETCHING_FAIL" })
+//         if (error.response.data === "token expired") {
+//             dispatch({ type: "LOG_OUT" })
+//         }
+//     }
+// }

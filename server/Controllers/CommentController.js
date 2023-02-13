@@ -1,0 +1,55 @@
+import CommentModel from "../Models/CommentModel.js";
+import PostModel from "../Models/postModel.js";
+
+export const createComment = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.body.userId;
+
+  try {
+    const comment = new CommentModel({
+      userId: userId,
+      postId: postId,
+      comment: req.body.comment,
+    });
+
+    await comment.save();
+
+    const newComment = await CommentModel.findById(comment._id).populate('userId');
+    res.status(200).json(newComment);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const getComments = async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const response = await CommentModel.find({ postId: postId }).populate({
+      path: "userId",
+      select: { firstname: 1, lastname: 1 },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//delete comment 
+
+export const deleteComment = async (req,res) => {
+  // const userId = req.params.userId;
+  const commentId = req.params.commentId;
+  try {
+    const comment = await CommentModel.findById(commentId)
+    if(comment){
+      await comment.deleteOne();
+      res.status(200).json("comment deleted successfully")
+    }else{
+      res.status(403).json("Action forbidden")
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error)
+  }
+}

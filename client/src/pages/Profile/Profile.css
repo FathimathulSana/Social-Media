@@ -1,0 +1,38 @@
+.Profile{
+    position: relative;
+    display: grid;
+    grid-template-columns: 25rem auto 25rem;
+    gap: 1rem;
+    margin-left: 8px;
+}
+
+.Profile-center{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.verifyRequest{
+    cursor: pointer;
+    color:rgb(0, 0, 0) !important;
+}
+
+.verifyRequestSend{
+    cursor: default !important;
+    color:rgb(0, 0, 0) !important;
+
+}
+
+@media only screen and (max-width:1389px) {
+    .Profile{
+        grid-template-columns: 0rem auto 25rem;
+    }
+    
+}
+@media only screen and (max-width:993PX) {
+    .Profile{
+        grid-template-columns: 0rem auto 10rem;
+    }
+  
+}
+
+

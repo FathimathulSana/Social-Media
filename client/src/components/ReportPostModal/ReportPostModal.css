@@ -1,0 +1,16 @@
+.fieldsetStyle{
+    display: flex;
+    /* flex-direction: row; */
+    padding: 1rem;
+    justify-content: space-between;
+    color:rgb(0, 0, 0);
+}
+
+.myButton{
+    margin-left: 19rem;
+    border-radius: 5px;
+    background: var(--buttonBg);
+    border: none;
+    width: 4rem;
+    height: 2rem;
+}

@@ -1,0 +1,22 @@
+.adminPage {
+    background: linear-gradient(106.37deg,
+            #f1eae1 29.63%,
+            #8f8686 51.55%,
+            #302d30 90.85%);
+    border-radius: 2rem;
+    height: 100vh !important;
+    display: flex;
+    /* font-family: 'Inter', sans-serif ; */
+    justify-content: center;
+}
+
+.appGlass {
+    display: grid;
+    height: 97%;
+    width: 100%;
+    /* margin-top: 0.5rem; */
+    /* border-radius: 2rem;*/
+    background-color: var(--glass);
+    overflow: hidden;
+    grid-template-columns: 12rem auto;
+}

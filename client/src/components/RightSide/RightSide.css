@@ -1,0 +1,93 @@
+.RightSide {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-left: 10px;
+}
+
+.navIcons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.navIcons-chat {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.icon:hover {
+    cursor: pointer;
+    color: var(--violet);
+}
+
+.r-button {
+    height: 3rem;
+    width: 80%;
+    align-self: center;
+}
+
+/* @media only screen and (max-width:1203px) {
+    .icon {
+        display: block;
+    }
+} */
+
+@media only screen and (max-width:933PX) {
+    /* .TrendCard-righside {
+        display: none;
+    } */
+
+    .navIcons-chat {
+        margin-top: 1rem;
+        display: flex;
+    }
+    .navIcons{
+        display: block;
+    }
+
+    .navIcons>div {
+        margin: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .icon {
+        display: block;
+    }
+
+    .r-button {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width:700px) {
+    .RightSide {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 2rem 2rem 0 0;
+        background: var(--cardColor);
+    }
+
+    .navIcons {
+        display: flex;
+    }
+
+    .navIcons>div {
+        margin: 5px 30px;
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+@media only screen and (max-width:420px) {
+    .navIcons {
+        display: flex;
+        margin-top: 1rem;
+        justify-content: space-evenly;
+    }
+}

@@ -1,0 +1,86 @@
+.Post {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--cardColor);
+    border-radius: 1rem;
+    gap: 1rem;
+}
+
+.Delete{
+    display: flex;
+    cursor: pointer;
+}
+
+.Post>img {
+    width: 100%;
+    max-height: 40rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.postReact {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+.Post-Info{
+    display: flex;
+    justify-content: space-between;
+}
+.Report{
+    z-index:3;
+    position: absolute;
+    background: white;
+    -webkit-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+    padding: 10px 0px;
+    border-radius: 5px;
+    right: 20px;
+    top: 55px;
+    align-items: center;
+}
+.Report >div>div{
+    padding: 6px 9px;
+}
+.Report >div>div:hover{
+    background-color: rgb(228, 228, 228);
+    cursor: pointer;
+}
+.PostImage{
+  margin-top: 15px;
+}
+.button-delete{
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    background: var(--buttonBg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.postTime{
+    font-size: 10px;
+    margin-left: 40px;
+    margin-top: -15px;
+}
+.Input{
+    border: none;
+    outline: none;
+    background-color: rgb(206, 204, 204);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+    .postHeads{
+        display: flex;
+        align-items: center;
+    }
+    .postHeads>img{
+        width: 35px;
+        height: 35px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
