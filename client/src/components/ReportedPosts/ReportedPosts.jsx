@@ -28,6 +28,7 @@ export default function BasicTable({ allReportedPosts, setReportedPostsUseEffect
                         <TableRow>
                             <TableCell>No.</TableCell>
                             <TableCell>Post</TableCell>
+                            <TableCell align="left">Number of Reports</TableCell>
                             <TableCell align="left">Reports</TableCell>
                             <TableCell align="left">Actions</TableCell>
                         </TableRow>
@@ -44,6 +45,10 @@ export default function BasicTable({ allReportedPosts, setReportedPostsUseEffect
                                     ) : (
                                         post.description
                                     )}
+                                </TableCell>
+
+                                <TableCell>
+                                    {post.reports.length}
                                 </TableCell>
 
                                 <TableCell align="left">

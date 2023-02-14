@@ -3,16 +3,19 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import {TiDelete} from "react-icons/ti";
+import { TiEdit } from "react-icons/ti";
 import "./Comment.css";
 import { createComment, deleteComment, getComments } from "../../actions/CommentAction";
+import CommentEditModal from "../CommentEditModal/CommentEditModal";
 
 const Comment = ({ data }) => {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.authReducer.authData);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
+    const [commentEditModal,setCommentEditModal] = useState(false)
 
-    useEffect(() => {
+    useEffect(() => {       
         try {
             const fetchComments = async () => {
                 const response = await dispatch(getComments(data._id));
@@ -22,6 +25,7 @@ const Comment = ({ data }) => {
         } catch (error) {
             console.log(error);
         }
+
     }, [comments]);
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,7 +68,16 @@ const Comment = ({ data }) => {
                             </b>
                             :{value?.comment}
                         {value.userId._id === user._id ? <TiDelete size={20} color={"#ae056d"} style={{cursor:"pointer"}} onClick={()=>handleDelete(value)} /> : ""}
+                        {value.userId._id === user._id ? <TiEdit size={20} color={"#ae056d"} style={{cursor:"pointer"}}  onClick={() => setCommentEditModal((prev) => !prev)} /> : "" }
                         </p>
+                        {
+                            <CommentEditModal 
+                                commentEditModal={commentEditModal}
+                                setCommentEditModal={setCommentEditModal}
+                                userId={user._id}
+                                commentId={value._id}
+                                />
+                        }
                         </>
                     );
                 })}

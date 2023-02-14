@@ -26,3 +26,11 @@ export const deleteComment = (commentId) => async (dispatch)=>{
            }
     }
 }
+
+export const editComment  = (commentId,editData) => async (dispatch) =>{
+    try {
+        return await CommentApi.editComment(commentId,editData)
+    } catch (error) {
+        console.log(error);
+    }
+}

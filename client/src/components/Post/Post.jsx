@@ -14,9 +14,9 @@ import ReportPostModal from "../ReportPostModal/ReportPostModal";
 import Img from "../../img/reportPost.png";
 import deletButton from "../../img/deleteButton.png";
 import PostDeleteModal from "../PostDeleteModal/PostDeleteModal";
-import {FiMoreVertical} from "react-icons/fi"
-import {AiFillEdit} from 'react-icons/ai'
-import {Dropdown} from 'antd'
+import { FiMoreVertical } from "react-icons/fi";
+import { AiFillEdit } from "react-icons/ai";
+import { Dropdown } from "antd";
 import PostEditModal from "../PostEditModal/PostEditModal";
 
 const Post = ({ data }) => {
@@ -31,17 +31,6 @@ const Post = ({ data }) => {
     const [reportPostModalOpen, setReportPostModalOpen] = useState(false);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
     const serverVideos = process.env.REACT_APP_PUBLIC_VIDEOS;
-
-
-    // const editSubmit = async() => {
-    //     //here in order to reduce the no. of states i have actually used the same state reportText
-    //     const data = {postId : id,description : reportText}
-    //     const datas = await editPost(id,data)
-    //     dispatch({type : "EDIT_POST" , datas})
-    //     setReportText("")
-    //     setEdit(false)
-    // }
-
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -64,25 +53,26 @@ const Post = ({ data }) => {
 
     const items = [
         {
-          key: "1",
-          label: (
-            <img
-            src={deletButton}
-            onClick={() => setModalOpen((prev) => !prev)}
-            style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}
-            alt=""
-        />
-          ),
+            key: "1",
+            label: (
+                <img
+                    src={deletButton}
+                    onClick={() => setModalOpen((prev) => !prev)}
+                    style={{ marginTop: "18px", width: "25px", height: "25px", cursor: "pointer" }}
+                    alt=""
+                />
+            ),
         },
         {
             key: "2",
             label: (
-          <AiFillEdit 
-          onClick={() => setEditModalOpen((prev) => !prev)}
-          style={{marginTop:'18px', width: "25px", height: "25px",cursor:"pointer"}}/>
+                <AiFillEdit
+                    onClick={() => setEditModalOpen((prev) => !prev)}
+                    style={{ marginTop: "18px", width: "25px", height: "25px", cursor: "pointer" }}
+                />
             ),
-          },
-      ];
+        },
+    ];
 
     return (
         <div className="Post">
@@ -94,7 +84,8 @@ const Post = ({ data }) => {
                             navigate(`/profile/${owner._id}`);
                         }}
                     >
-                        <img className="PostImage"
+                        <img
+                            className="PostImage"
                             src={
                                 owner?.profilePicture
                                     ? serverPublic + owner.profilePicture
@@ -105,40 +96,43 @@ const Post = ({ data }) => {
                         <b style={{ marginLeft: "5px", cursor: "pointer" }}>{owner?.username}</b>
                     </div>
 
-
-                {data.userId !== user._id && (
-                    <img src={Img} alt="" onClick={reportPostFn} style={{marginTop:'18px', width: "25px",height:"25px", cursor: "pointer" }} />
-                )}
-                {data.userId === user._id && (
-                
-                <div className="post-head-right">
-                <Dropdown
-                  menu={{
-                    items,
-                  }}
-                  placement="bottomRight"
-                  arrow={{
-                    pointAtCenter: true,
-                  }}
-                >
-                  <button
-                    style={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "none",
-                    }}
-                  >
-                    <FiMoreVertical size={27} color={"black"} style={{marginTop:'18px',cursor: "pointer" }} />
-                  </button>
-                </Dropdown>
-              </div>
-                   
-               
-            )}
-
-
+                    {data.userId !== user._id && (
+                        <img
+                            src={Img}
+                            alt=""
+                            onClick={reportPostFn}
+                            style={{ marginTop: "18px", width: "25px", height: "25px", cursor: "pointer" }}
+                        />
+                    )}
+                    {data.userId === user._id && (
+                        <div className="post-head-right">
+                            <Dropdown
+                                menu={{
+                                    items,
+                                }}
+                                placement="bottomRight"
+                                arrow={{
+                                    pointAtCenter: true,
+                                }}
+                            >
+                                <button
+                                    style={{
+                                        backgroundColor: "transparent",
+                                        color: "white",
+                                        border: "none",
+                                    }}
+                                >
+                                    <FiMoreVertical
+                                        size={27}
+                                        color={"black"}
+                                        style={{ marginTop: "18px", cursor: "pointer" }}
+                                    />
+                                </button>
+                            </Dropdown>
+                        </div>
+                    )}
                 </div>
-                       <div className="postTime">Posted {format(data.createdAt)}</div>
+                <div className="postTime">Posted {format(data.createdAt)}</div>
             </div>
             {
                 <ReportPostModal
@@ -149,59 +143,21 @@ const Post = ({ data }) => {
                 />
             }
 
-            
-        {    <PostDeleteModal
-                    modalOpen={modalOpen}
-                    setModalOpen={setModalOpen}
-                    id={data._id}
-                    currentUser={user._id}
-                />
-                }
-                {
-                    <PostEditModal
+            {<PostDeleteModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={data._id} currentUser={user._id} />}
+            {
+                <PostEditModal
                     editModalOpen={editModalOpen}
                     setEditModalOpen={setEditModalOpen}
                     userId={user._id}
                     postId={data._id}
                 />
             }
-            
-            {/* <Modal
-              opened={edit}
-              onClose={() => setEdit(false)} >
-                       <div style={{ textAlign: "center" }}>
-                    <span>Edit the Description of your Post</span>
-
-                    <input className="Input"
-                        type="text"
-                        style={{ width: "100", marginTop: "10px" }}
-                        onChange={(e) => {
-                            setReportText(e.target.value);
-                        }}
-                        id="report"
-                        name="report"
-                    />
-                    <button className="button-delete" style={{ marginTop: "10px",marginLeft:"5px" }} onClick={editSubmit}>
-                        Submit
-                    </button>
-                </div>
-
-            </Modal>
-
-         
-                {user._id === data?.userId ? <div>
-                    <div onClick={() =>{
-                        setEdit(true)
-                    }}><AiFillEdit /> Edit this Post</div>
-                </div>
-                 } */}
-       
-
-            {/* =================== */}
 
             <hr style={{ width: "100%", border: "0.1px solid #ececec" }} />
             <img src={data.image ? serverPublic + data.image : ""} alt="" />
-            { data.video && <video style={{width:"100%"}} controls loop autoPlay={true} muted src={serverVideos + data.video } />}
+            {data.video && (
+                <video style={{ width: "100%" }} controls loop autoPlay={true} muted src={serverVideos + data.video} />
+            )}
             <div className="detail">
                 <span style={{ fontWeight: "bold", fontFamily: "cursive" }}> {data.description}</span>
             </div>

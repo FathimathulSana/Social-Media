@@ -37,19 +37,29 @@ export const getComments = async (req, res) => {
 
 //delete comment 
 
-export const deleteComment = async (req,res) => {
+export const deleteComment = async (req, res) => {
   // const userId = req.params.userId;
   const commentId = req.params.commentId;
   try {
     const comment = await CommentModel.findById(commentId)
-    if(comment){
+    if (comment) {
       await comment.deleteOne();
       res.status(200).json("comment deleted successfully")
-    }else{
+    } else {
       res.status(403).json("Action forbidden")
     }
   } catch (error) {
     console.log(error);
     res.status(500).json(error)
+  }
+}
+
+export const editComment = async (req, res) => {
+  try {
+    const data = await CommentModel.findOneAndUpdate({ _id: req.body.commentId }, { $set: { comment: req.body.comment } })
+    res.status(200).json({ data })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error)
   }
 }
