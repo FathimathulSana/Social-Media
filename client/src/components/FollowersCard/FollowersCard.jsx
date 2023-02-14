@@ -13,6 +13,8 @@ const FollowersCard = ({ locality }) => {
     const { user } = useSelector((state) => state.authReducer.authData);
     const  person  = useSelector((state) => state.userReducer.userData);
     const [persons,setPersons] = useState([])
+    const userVisible = 4 
+    const [next,setNext] = useState(userVisible)
 
     useEffect(() => {
             setPersons(person)
@@ -25,6 +27,9 @@ const FollowersCard = ({ locality }) => {
         dispatch(getAllUser());
     }, []);
     
+    const handleShowMore = () => {
+        setNext(next+userVisible)
+    }
 
     return (
         <>
@@ -33,7 +38,7 @@ const FollowersCard = ({ locality }) => {
                     <h3>People you may know</h3>
                     {persons ? (
                         <>
-                            {person?.map((person, id) => {
+                            {person?.slice(0,next).map((person, id) => {
                                 if (person._id !== user._id) {
                                     return <User person={person} list="people" key={id} id={person._id} />;
                                 }
@@ -42,6 +47,8 @@ const FollowersCard = ({ locality }) => {
                     ) : (
                         ""
                     )}
+                    {next < persons.length &&
+                    <button onClick={handleShowMore} className="showMore">Show More</button>}
                 </div>
             ) : (
                 <div className="FollowerCard">
@@ -55,11 +62,13 @@ const FollowersCard = ({ locality }) => {
                     <hr style={{ width: "100%", border: "0.1px solid #ececec" }} />
                     {followingPersons.length > 0 ? <h3>Following</h3> : ""}
 
-                    {followingPersons.map((person, id) => {
+                    {followingPersons.slice(0,next).map((person, id) => {
                         if (person._id !== user._id) {
                             return <User person={person} list="followingpeople" key={id} id={person._id}/>;
                         }
                     })}
+                    {next < followingPersons.length &&
+                    <button onClick={handleShowMore} className="showMore">Show More</button>}
                 </div>
             )}
         </>
