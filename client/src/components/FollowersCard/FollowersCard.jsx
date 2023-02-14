@@ -18,6 +18,7 @@ const FollowersCard = ({ locality }) => {
 
     useEffect(() => {
             setPersons(person)
+            console.log(person,'is ther perso')
             setFollowersPersons(persons?.filter((person) => user.followers.includes(person._id)));
             setFollowingPersons(persons?.filter((person) => user.following.includes(person._id)));
       
@@ -36,16 +37,14 @@ const FollowersCard = ({ locality }) => {
             {locality === "profileSide" ? (
                 <div className="FollowerCard">
                     <h3>People you may know</h3>
-                    {persons ? (
+                    {persons  && (
                         <>
-                            {person?.slice(0,next).map((person, id) => {
+                            {persons?.slice(0,next).map((person, id) => {
                                 if (person._id !== user._id) {
                                     return <User person={person} list="people" key={id} id={person._id} />;
                                 }
                             })}
                         </>
-                    ) : (
-                        ""
                     )}
                     {next < persons.length &&
                     <button onClick={handleShowMore} className="showMore">Show More</button>}

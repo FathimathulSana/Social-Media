@@ -16,6 +16,8 @@ const OtpVerification = () => {
     const [otpThree, setOtpThree] = useState("");
     const [otpFour, setOtpFour] = useState("");
     const [otp, setOtp] = useState("");
+    const [minutes,setMinutes] = useState(1);
+    const [seconds,setSeconds] = useState(30)
     const location = useLocation();
     const dispatch = useDispatch();
     let registerationDetails = location?.state?.registerationData;
@@ -60,10 +62,34 @@ const OtpVerification = () => {
          } 
     };
 
+    useEffect(()=> {
+        const interval = setInterval(() => {
+            if(seconds > 0) {
+                setSeconds(seconds - 1)
+            }
+
+            if(seconds === 0){
+                if(minutes === 0) {
+                    clearInterval(interval)
+                }else{
+                    setSeconds(59)
+                    setMinutes(minutes-1)
+                }
+            }
+        },1000)
+
+        return () => {
+            clearInterval(interval)
+        };
+    },[seconds])
+
     const resendOtp = async(e) => {
         e.preventDefault();
+        setMinutes(1)
+        setSeconds(30)
         dispatch(resendotp(registerationDetails.data.email,registerationDetails.data.userId))
     }
+
 
     return (
         <div className="OtpVerification">
@@ -127,10 +153,20 @@ const OtpVerification = () => {
                         Verify
                     </button>
                 </div>
-                <small>
-                    If you didn't receive a code !! <strong style={{cursor : "pointer"}} onClick={(e) => {
-                        resendOtp(e)
-                    }}>RESEND</strong>
+
+                <small className="countdown-text">
+                    {seconds > 0 || minutes > 0 ? (
+                        <p>
+                            Time Remaining : {minutes < 10 ? `0${minutes}` : minutes}:
+                            {seconds < 10 ? `0${seconds}` : seconds}
+                        </p>
+                    ) : (
+                        <p>Didn't recieve the code?</p>
+                        )}
+                         <strong disabled={seconds > 0 || minutes > 0}
+                          style={{marginLeft:"50px",cursor : "pointer", color : seconds > 0 || minutes >0 ? "#DFE3E8" : "#000000" }} onClick={(e) => {
+                            resendOtp(e)
+                        }}>RESEND</strong>
                 </small>
             </div>
         </div>
