@@ -154,12 +154,11 @@ export const getUserData = async (req, res) => {
 //block user
 
 export const blockuser = async (req, res) => {
-    console.log(req.body)
     const active = req.body.data
-    console.log(active)
     try {
 
-        active ? await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: false } }, { new: true }) : await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: true } }, { new: true });
+        active ? await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: false } }, { new: true }) :
+            await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: true } }, { new: true });
         active ? res.status(200).json('user blocked') : res.status(200).json('user unblocked');
     } catch (error) {
         res.status(500).json(error)
@@ -175,7 +174,7 @@ export const isFamousRequest = async (req, res) => {
 
     try {
         const requests = await AdminnotificationModel.find()
-        
+
         if (requests[0].verificationRequests.includes(id)) {
 
             return res.status(400).json("verification")
@@ -196,7 +195,6 @@ export const getVerifyNotifications = async (req, res) => {
     try {
         const adminNotifications = await AdminnotificationModel.find()
         const verificationNotifications = adminNotifications[0].verificationRequests
-        console.log(verificationNotifications, "itho");
         res.status(200).json(verificationNotifications)
     } catch (error) {
         res.status(500).json(error)
@@ -211,7 +209,6 @@ export const makeIsFamous = async (req, res) => {
     try {
         const userUpdated = await UserModel.findByIdAndUpdate(id, { $set: { isFamous: "true" } }, { new: true })
         const adminNotificationsUpdated = await AdminnotificationModel.updateOne({ $pull: { verificationRequests: id } })
-        console.log(userUpdated);
         res.status(200).json("user acount is verified now")
     } catch (error) {
         res.status(500).json(error)

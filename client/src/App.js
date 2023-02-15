@@ -10,6 +10,8 @@ import Chat from "./pages/Chat/Chat";
 import OtpVerification from "./components/OtpVerification/OtpVerification";
 import AdminPage from "./pages/Admin/AdminPage/AdminPage";
 import AdminAuth from "./pages/Admin/AdminAuth/AdminAuth";
+import ForgotPass from "./components/ForgotPass/ForgotPass"
+import ResetForm from "./components/ResetForm/ResetForm";
 function App() {
   const user = useSelector((state) => state.authReducer.authData)
   const admin = useSelector((state) => state.adminAuthReducer.adminData);
@@ -25,7 +27,9 @@ function App() {
         <Route path="/profile/:id" element={user ? <Profile /> : <Navigate to="../auth" />} />
         <Route path='/chat' element={user ? <Chat /> : <Navigate to="../auth" />} />
         <Route path="/otpverification" element={user ? <Navigate to='../home' /> : <OtpVerification />} />
-        <Route path='/admin' element={admin? <AdminPage /> : <AdminAuth />} />
+        <Route path='/admin' element={admin ? <AdminPage /> : <AdminAuth />} />
+        <Route path="/forgotpass" element={<ForgotPass />} />
+        <Route path="/resetpass/:token" element={<ResetForm />} />
       </Routes>
     </div>
   );

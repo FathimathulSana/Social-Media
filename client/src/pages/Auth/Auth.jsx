@@ -7,7 +7,7 @@ import { logIn, reset } from "../../actions/AuthAction";
 import { toast } from "react-hot-toast";
 import Alert from "../../components/Alert/Alert";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../api/AuthRequests";
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -193,6 +193,14 @@ const Auth = () => {
                         >
                             {isSignUp ? "ALREADY HAVE AN ACCOUNT? LOGIN" : "NEW TO REACHME? SIGNUP"}
                         </span>
+                    </div>
+                    <div>
+                        <Link style={{ color: "inherit", marginTop: "-80px" }} to="../forgotpass">
+                            {" "}
+                            <span style={{ fontSize: "12px", cursor: "pointer", fontWeight: "bold" }}>
+                                {isSignUp ? "" : "Forgot Password?"}
+                            </span>
+                        </Link>
                     </div>
                     <button className="button infoButton" type="submit" disabled={loading}>
                         {loading ? "Loading..." : isSignUp ? "Signup" : "Login"}

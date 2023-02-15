@@ -48,7 +48,7 @@ export const loginUser = async (req, res) => {
                 res.status(400).json("Wrong Password!")
             } else {
                 const active = user.active
-                if(!active){
+                if (!active) {
                     return res.status(400).json("You has been blocked")
                 }
                 const token = jwt.sign({
@@ -84,8 +84,8 @@ export const verifyotp = async (req, res) => {
                 if (expiresAt < Date.now()) {
                     //user otp record has expired
                     await OtpModel.deleteMany({ userId });
-                     return res.status(404).json("Code has expired. Please request again.")
-                    
+                    return res.status(404).json("Code has expired. Please request again.")
+
                 } else {
                     const validOTP = await bcrypt.compare(otp, hashedOTP);
                     if (!validOTP) {
@@ -124,24 +124,23 @@ export const verifyotp = async (req, res) => {
 
 //resend otp
 
-export const resendOtp = async (req,res) => {
-    console.log("resend otp");
+export const resendOtp = async (req, res) => {
     try {
-        let {userId,email} = req.body;
+        let { userId, email } = req.body;
 
-        if(!userId || !email){
+        if (!userId || !email) {
             throw Error("Empty user details are not allowed");
-        }else{
+        } else {
             //delete existing record and resend
-            await OtpModel.deleteMany({userId});
-            sendOtpVerificationEmail({_id:userId,email:email},res);
+            await OtpModel.deleteMany({ userId });
+            sendOtpVerificationEmail({ _id: userId, email: email }, res);
         }
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            status:"FAILED",
-            message:error.message
+            status: "FAILED",
+            message: error.message
         })
     }
 }
@@ -177,3 +176,4 @@ export const adminLogin = async (req, res) => {
 
 
 }
+
