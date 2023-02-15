@@ -1,22 +1,77 @@
-import { Modal, useMantineTheme } from "@mantine/core";
+import { Modal, Radio  } from '@mantine/core';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast'
 
-function SettingsModal({ modalOpened, setModalOpened }) {
-    const theme = useMantineTheme();
+import '../ReportPostModal/ReportPostModal.css'
+import { editPost } from '../../api/UserRequest';
 
-    return (
-        <Modal
-            overlayColor={theme.colorScheme === "dark" ? theme.colors.dark[9] : theme.colors.gray[2]}
-            overlayOpacity={0.55}
-            overlayBlur={3}
-            size="55%"
-            opened={modalOpened}
-            onClose={() => setModalOpened(false)}
-        >
-            <div className="infoForm">
-                <h3>Settings</h3>
-            </div>
-        </Modal>
-    );
+function SettingsModal({settingModalOpend,setSettingModalOpened}) {
+    const [currentpass,setCurrentPass] = useState('');
+    const [password,setPassword] = useState('')
+    const [confirmPass,setConfirmPass] = useState('')
+
+    const changePass = () => {
+        setSettingModalOpened(false)
+    }
+   
+  return (
+    <Modal 
+    opened={settingModalOpend}
+    centered={true}
+    withCloseButton={false}
+    onClose={() => setSettingModalOpened(false)}
+    >
+    
+    <div className='fieldsetStyleItems' style={{ textAlign: "center" }}>
+                    <span>Want to change Password?</span>
+
+                    <div>
+                    <div>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className="Input"
+                            style={{ width: "100", marginTop: "10px" }}
+                            name="password"
+                            value={currentpass}
+                            onChange={(e) => setCurrentPass(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            className="Input"
+                            style={{ width: "100", marginTop: "10px" }}
+                            name="password"
+                            value={confirmPass}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            className="Input"
+                            style={{ width: "100", marginTop: "10px" }}
+                            name="confirmpass"
+                            value={confirmPass}
+                            onChange={(e) => setConfirmPass(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+                    <button className="myButton" style={{ marginTop: "10px",marginLeft:"5px",cursor:"pointer" }} onClick={changePass}>
+                        Submit
+                    </button>
+                </div>
+
+
+    </Modal>
+  );
 }
 
 export default SettingsModal;
