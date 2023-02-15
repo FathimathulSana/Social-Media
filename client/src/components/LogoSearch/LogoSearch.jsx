@@ -49,7 +49,7 @@ const LogoSearch = ({ setNewUser, place }) => {
                                   alt=""
                               />
                               <p onClick={() => setNewUser(person)} style={{ cursor: "pointer" }}>
-                                  {person.username}
+                                  {person?.username}
                               </p>
                               <hr style={{marginTop:"15px", width: "100%", border: "0.1px solid #ececec" }} />
 
