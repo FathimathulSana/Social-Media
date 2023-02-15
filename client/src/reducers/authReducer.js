@@ -12,7 +12,7 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
 
     case "UPDATING_START":
       return { ...state, updateLoading: true, error: false };
-      
+
     case "UPDATING_SUCCESS":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
       return { ...state, authData: action.data, updateLoading: false, error: false };
@@ -24,10 +24,10 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
       return { ...state, authData: { ...state.authData, user: { ...state.authData.user, following: [...state.authData.user.following, action.data] } } }
     case "UNFOLLOW_USER":
       return { ...state, authData: { ...state.authData, user: { ...state.authData.user, following: [...state.authData.user.following.filter((personId) => personId !== action.data)] } } }
-      
-     case "SEND_ISFAMOUS_REQUEST":
-        return{...state,authData:{...state.authData,user:{...state.authData.user,isFamous:"pending"}}};
-  
+
+    case "SEND_ISFAMOUS_REQUEST":
+      return { ...state, authData: { ...state.authData, user: { ...state.authData.user, isFamous: "pending" } } };
+
     case "LOG_OUT":
       localStorage.clear();
       return { ...state, authData: null, loading: false, error: false, message: null }
