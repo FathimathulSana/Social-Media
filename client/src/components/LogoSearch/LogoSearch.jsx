@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUser, getUserData } from "../../actions/userAction";
-// import image from '../../img/Pro.jpg'
 
 const LogoSearch = ({ setNewUser, place }) => {
     const dispatch = useDispatch();

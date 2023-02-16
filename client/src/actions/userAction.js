@@ -104,16 +104,3 @@ export const getAllUser = () => async (dispatch) => {
     }
 }
 
-// export const getUser = (id) => async (dispatch) => {
-//     dispatch({ type: "FETCH_USER_DETAILS" })
-
-//     try {
-//         const { data } = await UserApi.getUser(id)
-//         dispatch({ type: "USER_DETAILS_FETCHED", data: data })
-//     } catch (error) {
-//         dispatch({ type: "USER_DETAILS_FETCHING_FAIL" })
-//         if (error.response.data === "token expired") {
-//             dispatch({ type: "LOG_OUT" })
-//         }
-//     }
-// }

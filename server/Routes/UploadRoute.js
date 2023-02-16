@@ -1,8 +1,8 @@
 import express from "express";
-const router = express.Router()
 import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 import multer from "multer";
 import sharp from 'sharp';
+const router = express.Router()
 
 const imageStorage = multer.memoryStorage();
 const videoStorage = multer.diskStorage({
@@ -17,7 +17,6 @@ const imageUpload = multer({ storage: imageStorage });
 const videoUpload = multer({ storage : videoStorage })
 
 router.use(authMiddleWare);
-
 router.post('/', imageUpload.single("file"), async (req, res) => {
   try {
     const path = `public/images/${req.body.name}`;

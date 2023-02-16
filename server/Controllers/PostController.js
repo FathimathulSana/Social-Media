@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import UserModel from "../Models/userModel.js";
 
 //Create new Post
-
 export const createPost = async (req, res) => {
     const newPost = new PostModel(req.body);
     try {
@@ -15,10 +14,8 @@ export const createPost = async (req, res) => {
 };
 
 //Get a Post
-
 export const getPost = async (req, res) => {
     const id = req.params.id;
-
     try {
         const post = await PostModel.findById(id);
         res.status(200).json(post);
@@ -28,7 +25,6 @@ export const getPost = async (req, res) => {
 };
 
 //Delete a post
-
 export const deletePost = async (req, res) => {
     const id = req.params.id
     const userId = req.body.currentUser;
@@ -46,11 +42,9 @@ export const deletePost = async (req, res) => {
 }
 
 //Like and Dislike a post
-
 export const likePost = async (req, res) => {
     const id = req.params.id;
     const { userId } = req.body;
-
     try {
         const post = await PostModel.findById(id);
         if (!post.likes.includes(userId)) {
@@ -66,10 +60,8 @@ export const likePost = async (req, res) => {
 };
 
 //Get timeline Posts
-
 export const getTimelinePosts = async (req, res) => {
     const userId = req.params.id;
-
     try {
         const currentUserPosts = await PostModel.find({ userId: userId });
         const followingPosts = await UserModel.aggregate([
@@ -93,7 +85,6 @@ export const getTimelinePosts = async (req, res) => {
                 },
             },
         ]);
-
         res.status(200).json(currentUserPosts.concat(...followingPosts[0].followingPosts).sort((a, b) => {
             return b.createdAt - a.createdAt;
         }));
@@ -103,16 +94,12 @@ export const getTimelinePosts = async (req, res) => {
 };
 
 //Report post
-
 export const reportPost = async (req, res) => {
     const id = req.params.id
-
     const response = await PostModel.findByIdAndUpdate(id, { $push: { reports: req.body } })
 }
 
-
 //show reported posts for admin
-
 export const getReportedPosts = async (req, res) => {
     const posts = await PostModel.find()
     const reportedPosts = posts.filter((post) => post.reports.length > 0)
@@ -120,7 +107,6 @@ export const getReportedPosts = async (req, res) => {
 }
 
 export const reportedPostRemove = async (req, res) => {
-    console.log("evide ethiyo");
     const postId = req.params.id
     try {
         const removedFieldUpdate = await PostModel.findById(postId)
@@ -130,7 +116,6 @@ export const reportedPostRemove = async (req, res) => {
         } else {
             const response = await removedFieldUpdate.updateOne({ $set: { removed: true } })
             res.status(200).json("post blocked successfully")
-
         }
     } catch (error) {
         res.status(500).json(error)
@@ -142,7 +127,6 @@ export const editPost = async (req, res) => {
         const data = await PostModel.findOneAndUpdate({ _id: req.body.postId }, { $set: { description: req.body.description } })
         res.status(200).json({ data })
     } catch (error) {
-        console.log(error);
         res.status(500).send(error)
     }
 }

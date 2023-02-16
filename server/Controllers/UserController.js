@@ -4,11 +4,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 
 //get all users
-
 export const getAllUsers = async (req, res) => {
     try {
         let users = await UserModel.find();
-
         users = users.map((user) => {
             const { password, ...otherDetails } = user._doc
             return otherDetails
@@ -20,20 +18,16 @@ export const getAllUsers = async (req, res) => {
 }
 
 //get a user
-
 export const getUser = async (req, res) => {
     const id = req.params.id;
-
     try {
         const user = await UserModel.findById(id)
-
         if (user) {
             const { password, ...otherDetails } = user._doc
             res.status(200).json(otherDetails)
         } else {
             res.status(404).json("No such user exists")
         }
-
     } catch (error) {
         res.status(500).json(error)
     }
@@ -43,17 +37,13 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     const id = req.params.id;
     const { _id, currentUserAdminStatus, password } = req.body;
-
     if (id === _id) {
         try {
-
             if (password) {
                 const salt = await bcrypt.genSalt(10);
                 req.body.password = await bcrypt.hash(password, salt)
             }
-
             const user = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
-
             const token = jwt.sign(
                 { username: user.username, id: user._id },
                 process.env.JWT_KEY, { expiresIn: '1h' }
@@ -68,40 +58,31 @@ export const updateUser = async (req, res) => {
 }
 
 //Delete User
-
 export const deleteUser = async (req, res) => {
     const id = req.params.id;
     const { currentUserId, currentUserAdminStatus } = req.body;
-
     if (currentUserId === id || currentUserAdminStatus) {
         try {
-
             await UserModel.findByIdAndDelete(id)
             res.status(200).json("User deleted Successfully")
-
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
         res.status(403).json("Access Denied! You can only delete your own profile")
-
     }
 }
 
 //Follow User
-
 export const followUser = async (req, res) => {
     const id = req.params.id;
-
     const { _id } = req.body;
-
     if (_id === id) {
         res.status(403).json("Action forbidden")
     } else {
         try {
             const followUser = await UserModel.findById(id)
             const followingUser = await UserModel.findById(_id)
-
             if (!followUser.followers.includes(_id)) {
                 await followUser.updateOne({ $push: { followers: _id } })
                 await followingUser.updateOne({ $push: { following: id } })
@@ -116,19 +97,15 @@ export const followUser = async (req, res) => {
 }
 
 //UnFollow User
-
 export const unFollowUser = async (req, res) => {
     const id = req.params.id;
-
     const { _id } = req.body;
-
     if (_id === id) {
         res.status(403).json("Action forbidden")
     } else {
         try {
             const followUser = await UserModel.findById(id)
             const followingUser = await UserModel.findById(_id)
-
             if (followUser.followers.includes(_id)) {
                 await followUser.updateOne({ $pull: { followers: _id } })
                 await followingUser.updateOne({ $pull: { following: id } })
@@ -143,8 +120,6 @@ export const unFollowUser = async (req, res) => {
 }
 
 // search user
-
-
 export const getUserData = async (req, res) => {
     const { data } = req.body
     const peopleData = await UserModel.find({ "username": new RegExp(data, 'i') })
@@ -152,7 +127,6 @@ export const getUserData = async (req, res) => {
 }
 
 //block user
-
 export const blockuser = async (req, res) => {
     const active = req.body.data
     try {
@@ -162,23 +136,16 @@ export const blockuser = async (req, res) => {
         active ? res.status(200).json('user blocked') : res.status(200).json('user unblocked');
     } catch (error) {
         res.status(500).json(error)
-
     }
 }
 
-
 //request for setting user account verified with blue tick
-
 export const isFamousRequest = async (req, res) => {
     const id = req.params.id;
-
     try {
         const requests = await AdminnotificationModel.find()
-
         if (requests[0].verificationRequests.includes(id)) {
-
             return res.status(400).json("verification")
-
         } else {
             await requests[0].updateOne({ $push: { verificationRequests: id } })
             await UserModel.findByIdAndUpdate(id, { $set: { isFamous: "pending" } }, { new: true })
@@ -190,7 +157,6 @@ export const isFamousRequest = async (req, res) => {
 }
 
 //get verify notifications for admin
-
 export const getVerifyNotifications = async (req, res) => {
     try {
         const adminNotifications = await AdminnotificationModel.find()
@@ -199,11 +165,9 @@ export const getVerifyNotifications = async (req, res) => {
     } catch (error) {
         res.status(500).json(error)
     }
-
 }
 
 //admin making user is famous true
-
 export const makeIsFamous = async (req, res) => {
     const id = req.params.id
     try {
@@ -213,5 +177,4 @@ export const makeIsFamous = async (req, res) => {
     } catch (error) {
         res.status(500).json(error)
     }
-
 }

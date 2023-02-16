@@ -1,7 +1,6 @@
 import React from "react";
 import LogoSearch from "../LogoSearch/LogoSearch";
 import InfoCard from "../InfoCard/InfoCard";
-import FollowersCard from "../FollowersCard/FollowersCard";
 import { useDispatch, useSelector } from "react-redux";
 import { sendVerifiyRequest } from "../../actions/userAction";
 import { useParams } from "react-router-dom";

@@ -8,5 +8,4 @@ const OtpSchema = mongoose.Schema({
 });
 
 const OtpModel = mongoose.model('Otps', OtpSchema);
-
 export default OtpModel;

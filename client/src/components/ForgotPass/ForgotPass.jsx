@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { reset, resetPass, verifyotp } from "../../actions/AuthAction";
+import { useDispatch } from "react-redux";
+import { resetPass } from "../../actions/AuthAction";
 import { toast } from "react-hot-toast";
 import "../OtpVerification/OtpVerification.css";
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

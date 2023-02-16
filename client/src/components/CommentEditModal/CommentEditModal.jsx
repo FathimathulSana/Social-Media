@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast'
 
 import '../ReportPostModal/ReportPostModal.css'
-import { editPost } from '../../api/UserRequest';
 import { editComment } from '../../actions/CommentAction';
 
 function CommentEditModal({commentEditModal,setCommentEditModal,userId,commentId}) {

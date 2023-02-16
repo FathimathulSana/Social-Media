@@ -20,17 +20,13 @@ export const verifyotp = (userId, otp) => async (dispatch) => {
 };
 
 export const adminLogin = (formData) => async (dispatch) => {
-
   dispatch({ type: "ADMIN_AUTH_START" });
-
   try {
     const { data } = await AuthApi.adminLogin(formData)
     dispatch({ type: "ADMIN_AUTH_SUCCESS", data: data });
   } catch (error) {
-    console.log(error)
     dispatch({ type: "ADMIN_AUTH_FAIL" });
   }
-
 }
 
 export const resetPass = (email) => async (dispatch) => {
@@ -38,7 +34,6 @@ export const resetPass = (email) => async (dispatch) => {
    const {data} =  await AuthApi.resetPass(email)
   return data;
   } catch (error) {
-    console.log(error);
     return error;
   }
 }

@@ -3,8 +3,6 @@ import crypto from 'crypto'
 import nodemailer from 'nodemailer'
 import UserModel from '../Models/userModel.js'
 
-
-
 //resetPass
 export const resetPass = async (req, res) => {
     try {
@@ -13,16 +11,12 @@ export const resetPass = async (req, res) => {
         if (!user) {
             return res.status(400).json({error:true, message: 'No user found with this email address' });
         }
-
         //Generate a reset token
-
         const token = crypto.randomBytes(20).toString('hex');
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000;
         await user.save();
-
         //send password reset email
-
         const transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
@@ -30,7 +24,6 @@ export const resetPass = async (req, res) => {
                 pass: process.env.FROM_PASSWORD
             }
         });
-
         const mailOptions = {
             to: user.email,
             from: process.env.FROM_EMAIL,
@@ -39,7 +32,6 @@ export const resetPass = async (req, res) => {
             http://localhost:3000/resetpass/${token}\n\n
             If you did not request this, Please ignore this email and your password will remain unchanged.`
         };
-
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log(error);
@@ -48,33 +40,25 @@ export const resetPass = async (req, res) => {
             console.log('password reset email sent:' + info.response);
             return res.status(200).json({error:false, message: 'password reset email sent', token });
         })
-
     } catch (error) {
-        console.log(error);
         res.status(500).json(error)
     }
 }
 
 //route for setting password
-
 export const resetPassword = async (req, res) => {
-
     try {
         const { token, password } = req.body;
         const user = await UserModel.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
-
         if (!user) {
             return res.status(400).json({ message: 'Password reset token is invalid or has expired' });
         }
-
         //update the user's password
-
         const hashedPass = await bcrypt.hash(password, 10);
         user.password = hashedPass;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
         await user.save();
-
         res.status(200).json({ message: 'password has been reset successfully' });
     } catch (error) {
         res.status(500).json(error)
@@ -82,7 +66,6 @@ export const resetPassword = async (req, res) => {
 }
 
 //update password of user
-
 export const updatePassword = async (req,res) => {
     const {oldpassword,newpassword} = req.body;
     const id = req.params.id;
@@ -98,7 +81,6 @@ export const updatePassword = async (req,res) => {
             res.status(200).json({message:'Password updated'})
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json(error)
     }
 }

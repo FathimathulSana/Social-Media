@@ -1,16 +1,11 @@
-import { Modal, Radio } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { useState } from "react";
-import toast from "react-hot-toast";
-
 import "../ReportPostModal/ReportPostModal.css";
 import { useSelector } from "react-redux";
 import { message } from "antd";
 import { updatePassword } from "../../api/AuthRequests";
 
 function SettingsModal({ settingModalOpend, setSettingModalOpened }) {
-    // const [currentpass,setCurrentPass] = useState('');
-    // const [password,setPassword] = useState('')
-    // const [confirmPass,setConfirmPass] = useState('')
     const { user } = useSelector((state) => state.authReducer.authData);
 
     const [formData, setFormData] = useState("");

@@ -3,16 +3,17 @@ import { blockuser, deleteUser, followUser, getAllUsers, getUser, getUserData, g
 import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 const router = express.Router();
 
-router.get('/',authMiddleWare, getAllUsers)
-router.get('/:id',authMiddleWare, getUser)
-router.put('/:id',authMiddleWare, updateUser)
-router.delete('/:id',authMiddleWare, deleteUser)
-router.put('/:id/follow',authMiddleWare, followUser)
-router.put('/:id/unfollow',authMiddleWare, unFollowUser)
-router.post('/blockuser/:id',authMiddleWare, blockuser)
-router.post('/getdata',authMiddleWare, getUserData)
-router.post('/isfamousrequest/:id',authMiddleWare, isFamousRequest)
-router.post('/getverifynotifications',authMiddleWare, getVerifyNotifications)
-router.post('/makeisfamous/:id',authMiddleWare, makeIsFamous)
+router.use(authMiddleWare)
+router.get('/', getAllUsers)
+router.get('/:id', getUser)
+router.put('/:id', updateUser)
+router.delete('/:id', deleteUser)
+router.put('/:id/follow', followUser)
+router.put('/:id/unfollow', unFollowUser)
+router.post('/blockuser/:id', blockuser)
+router.post('/getdata', getUserData)
+router.post('/isfamousrequest/:id', isFamousRequest)
+router.post('/getverifynotifications', getVerifyNotifications)
+router.post('/makeisfamous/:id', makeIsFamous)
 
 export default router;

@@ -7,7 +7,6 @@ export const getTimelinePosts = (id) => async(dispatch) => {
         dispatch({type : "RETREIVING_SUCCESS" , data:data})
     } catch (error) {
         dispatch({type : "RETREIVING_FAIL"})
-        console.log(error);
     }
 }
 
@@ -32,8 +31,7 @@ export const reportPost =(postId,reportData) => async (dispatch) => {
         console.log(postId,reportData,"ethinn");
        return await PostApi.reportPost(postId,reportData)
     
-    } catch (error) {
-       
+    } catch (error) { 
         if(error.response.data === "token expired"){
             
             dispatch({type:"LOG_OUT"})

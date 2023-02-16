@@ -6,7 +6,7 @@ import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { likePost } from "../../api/PostRequest";
-import { editPost, getUser } from "../../api/UserRequest";
+import { getUser } from "../../api/UserRequest";
 import Comment from "../Comment/Comment";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";

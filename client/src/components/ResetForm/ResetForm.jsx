@@ -22,7 +22,6 @@ const ResetForm = (props) => {
         }
         if (password.length < 5) {
             return toast.error("Password minimum length is 5");
-            return false;
         }
         try {
             const response = await resetPassword(token, password);

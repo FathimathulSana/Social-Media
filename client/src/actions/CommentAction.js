@@ -4,7 +4,7 @@ export const createComment = (postId, comment, userId) => async (dispatch) => {
     try {
         return await CommentApi.createComment(postId, comment, userId)
     } catch (error) {
-        console.log(error,"errror");
+        console.log(error);
     }
 }
 
@@ -12,7 +12,7 @@ export const getComments = (postId) => async (dispatch) => {
     try {
         return await CommentApi.getComments(postId)
     } catch (error) {
-        console.log(error,"error");
+        console.log(error);
     }
 }
 

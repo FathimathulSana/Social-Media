@@ -4,7 +4,6 @@ import { ImHome } from "react-icons/im";
 import { FaRegCommentDots } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
 import {IoPersonCircle} from "react-icons/io5";
-import ShareModal from "../ShareModal/ShareModal";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FollowersCard from "../FollowersCard/FollowersCard";

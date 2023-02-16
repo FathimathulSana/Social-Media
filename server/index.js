@@ -11,10 +11,7 @@ import CommentRoute from './Routes/CommentRoute.js'
 import ChatRoute from './Routes/ChatRoute.js'
 import MessageRoute from './Routes/MessageRoute.js'
 
-//Routes
-
 const app = express();
-
 //to serve images for public
 app.use(express.static('public'))
 app.use('/images', express.static("images"))
@@ -35,7 +32,6 @@ mongoose
     .catch((error) => console.log(error));
 
 //usage of routes
-
 app.use('/auth', AuthRoute);
 app.use('/user', UserRoute);
 app.use('/post', PostRoute);

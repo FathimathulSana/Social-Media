@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./PostShare.css";
-import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from "@iconscout/react-unicons";
+import { UilScenery, UilPlayCircle, UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { uploadImage, uploadVideo } from "../../actions/uploadAction";
