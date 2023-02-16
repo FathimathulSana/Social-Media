@@ -1,6 +1,6 @@
 import express from "express";
 import { adminLogin, loginUser, registerUser, resendOtp, verifyotp } from "../Controllers/AuthController.js";
-import { resetPass, resetPassword } from '../Controllers/ResetController.js'
+import { resetPass, resetPassword, updatePassword } from '../Controllers/ResetController.js'
 const router = express.Router()
 
 router.post('/register', registerUser)
@@ -10,6 +10,7 @@ router.post('/resendotp', resendOtp)
 router.post('/adminLogin', adminLogin);
 router.post('/forgotpassword', resetPass)
 router.put('/resetPasswordForm', resetPassword)
+router.post('/updatepass/:id',updatePassword)
 
 
 export default router

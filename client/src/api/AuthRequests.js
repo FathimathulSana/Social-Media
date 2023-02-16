@@ -16,3 +16,5 @@ export const adminLogin = (formData) => API.post('/auth/adminLogin', formData);
 export const resetPass = (email) => API.post('/auth/forgotpassword', { email: email })
 
 export const resetPassword = (token, password) => API.put('/auth/resetPasswordForm', { token: token, password: password })
+
+export const updatePassword = (id,formData) => API.post(`/auth/updatepass/${id}`,formData)

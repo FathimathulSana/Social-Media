@@ -11,7 +11,6 @@ export const resetPass = async (req, res) => {
         const email = req.body.email
         const user = await UserModel.findOne({ email: email })
         if (!user) {
-            console.log('here');
             return res.status(400).json({error:true, message: 'No user found with this email address' });
         }
 
@@ -47,7 +46,7 @@ export const resetPass = async (req, res) => {
                 return res.status(500).json({ message: 'Error sending email' });
             }
             console.log('password reset email sent:' + info.response);
-            return res.status(200).json({ message: 'password reset email sent', token });
+            return res.status(200).json({error:false, message: 'password reset email sent', token });
         })
 
     } catch (error) {
@@ -78,6 +77,28 @@ export const resetPassword = async (req, res) => {
 
         res.status(200).json({ message: 'password has been reset successfully' });
     } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+//update password of user
+
+export const updatePassword = async (req,res) => {
+    const {oldpassword,newpassword} = req.body;
+    const id = req.params.id;
+    try {
+        const user = await UserModel.findById(id);
+        const verify = await bcrypt.compare(oldpassword,user.password);
+        if(!verify){
+            res.status(401).json({message : 'Old password is incorrect'});
+        }else{
+            const salt = await bcrypt.genSalt(10);
+            const hashedPass = await bcrypt.hash(newpassword,salt);
+            await UserModel.findByIdAndUpdate(id,{password : hashedPass});
+            res.status(200).json({message:'Password updated'})
+        }
+    } catch (error) {
+        console.log(error);
         res.status(500).json(error)
     }
 }

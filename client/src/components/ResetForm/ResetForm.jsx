@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import "../OtpVerification/OtpVerification.css";
 import { resetPassword } from "../../api/AuthRequests";
 
 const ResetForm = (props) => {
     const params = useParams();
+    const navigate = useNavigate()
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
 
@@ -25,8 +26,13 @@ const ResetForm = (props) => {
         }
         try {
             const response = await resetPassword(token, password);
+            if (!response?.data?.error){
+                toast.success(response.data.message)
+                navigate("/")
+            }
         } catch (error) {
             console.log(error.response.data);
+            return toast.error(error.response.data.message)
         }
     };
     return (
@@ -63,7 +69,6 @@ const ResetForm = (props) => {
                         />
                     </div>
                 </div>
-                {/* {error && <Alert message={message} handleCloseAlert={() => dispatch(reset())} />} */}
                 <div>
                     <button onClick={handleSubmit} type="button" className="button fc-button verifyBtn">
                         Conform

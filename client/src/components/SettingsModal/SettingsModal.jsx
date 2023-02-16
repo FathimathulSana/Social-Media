@@ -1,41 +1,67 @@
-import { Modal, Radio  } from '@mantine/core';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import toast from 'react-hot-toast'
+import { Modal, Radio } from "@mantine/core";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-import '../ReportPostModal/ReportPostModal.css'
-import { editPost } from '../../api/UserRequest';
+import "../ReportPostModal/ReportPostModal.css";
+import { useSelector } from "react-redux";
+import { message } from "antd";
+import { updatePassword } from "../../api/AuthRequests";
 
-function SettingsModal({settingModalOpend,setSettingModalOpened}) {
-    const [currentpass,setCurrentPass] = useState('');
-    const [password,setPassword] = useState('')
-    const [confirmPass,setConfirmPass] = useState('')
+function SettingsModal({ settingModalOpend, setSettingModalOpened }) {
+    // const [currentpass,setCurrentPass] = useState('');
+    // const [password,setPassword] = useState('')
+    // const [confirmPass,setConfirmPass] = useState('')
+    const { user } = useSelector((state) => state.authReducer.authData);
 
-    const changePass = () => {
-        setSettingModalOpened(false)
-    }
-   
-  return (
-    <Modal 
-    opened={settingModalOpend}
-    centered={true}
-    withCloseButton={false}
-    onClose={() => setSettingModalOpened(false)}
-    >
-    
-    <div className='fieldsetStyleItems' style={{ textAlign: "center" }}>
-                    <span>Want to change Password?</span>
+    const [formData, setFormData] = useState("");
 
-                    <div>
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.oldpassword || !formData.newpassword || !formData.newconfirmpass) {
+            return message.error("oops! fields are empty");
+        }
+        if (formData.newpassword !== formData.newconfirmpass) {
+            return message.error("Conform password did not match!");
+        }
+        if (formData.newpassword.length < 5) {
+            return message.error("Password minimum length is 5");
+        }
+        const id = user._id;
+        await updatePassword(id, formData)
+            .then((response) => {
+                if (response.status === 200) message.success("Password Updated successfully");
+                setSettingModalOpened(false);
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    message.error("Old password is incorrect!");
+                }
+            });
+    };
+
+    return (
+        <Modal
+            opened={settingModalOpend}
+            centered={true}
+            withCloseButton={false}
+            onClose={() => setSettingModalOpened(false)}
+        >
+            <div className="fieldsetStyleItems" style={{ textAlign: "center" }}>
+                <span>Want to change Password?</span>
+
+                <div>
                     <div>
                         <input
                             type="password"
                             placeholder="Password"
                             className="Input"
                             style={{ width: "100", marginTop: "10px" }}
-                            name="password"
-                            value={currentpass}
-                            onChange={(e) => setCurrentPass(e.target.value)}
+                            name="oldpassword"
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -45,9 +71,8 @@ function SettingsModal({settingModalOpend,setSettingModalOpened}) {
                             placeholder="Confirm Password"
                             className="Input"
                             style={{ width: "100", marginTop: "10px" }}
-                            name="password"
-                            value={confirmPass}
-                            onChange={(e) => setPassword(e.target.value)}
+                            name="newpassword"
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -57,21 +82,22 @@ function SettingsModal({settingModalOpend,setSettingModalOpened}) {
                             placeholder="Confirm Password"
                             className="Input"
                             style={{ width: "100", marginTop: "10px" }}
-                            name="confirmpass"
-                            value={confirmPass}
-                            onChange={(e) => setConfirmPass(e.target.value)}
+                            name="newconfirmpass"
+                            onChange={handleChange}
                             required
                         />
                     </div>
                 </div>
-                    <button className="myButton" style={{ marginTop: "10px",marginLeft:"5px",cursor:"pointer" }} onClick={changePass}>
-                        Submit
-                    </button>
-                </div>
-
-
-    </Modal>
-  );
+                <button
+                    className="myButton"
+                    style={{ marginTop: "10px", marginLeft: "5px", cursor: "pointer" }}
+                    onClick={handleSubmit}
+                >
+                    Update
+                </button>
+            </div>
+        </Modal>
+    );
 }
 
 export default SettingsModal;
