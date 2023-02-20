@@ -9,7 +9,7 @@ export const resetPass = async (req, res) => {
         const email = req.body.email
         const user = await UserModel.findOne({ email: email })
         if (!user) {
-            return res.status(400).json({error:true, message: 'No user found with this email address' });
+            return res.status(400).json({ error: true, message: 'No user found with this email address' });
         }
         //Generate a reset token
         const token = crypto.randomBytes(20).toString('hex');
@@ -34,11 +34,9 @@ export const resetPass = async (req, res) => {
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.log(error);
                 return res.status(500).json({ message: 'Error sending email' });
             }
-            console.log('password reset email sent:' + info.response);
-            return res.status(200).json({error:false, message: 'password reset email sent', token });
+            return res.status(200).json({ error: false, message: 'password reset email sent', token });
         })
     } catch (error) {
         res.status(500).json(error)
@@ -66,19 +64,19 @@ export const resetPassword = async (req, res) => {
 }
 
 //update password of user
-export const updatePassword = async (req,res) => {
-    const {oldpassword,newpassword} = req.body;
+export const updatePassword = async (req, res) => {
+    const { oldpassword, newpassword } = req.body;
     const id = req.params.id;
     try {
         const user = await UserModel.findById(id);
-        const verify = await bcrypt.compare(oldpassword,user.password);
-        if(!verify){
-            res.status(401).json({message : 'Old password is incorrect'});
-        }else{
+        const verify = await bcrypt.compare(oldpassword, user.password);
+        if (!verify) {
+            res.status(401).json({ message: 'Old password is incorrect' });
+        } else {
             const salt = await bcrypt.genSalt(10);
-            const hashedPass = await bcrypt.hash(newpassword,salt);
-            await UserModel.findByIdAndUpdate(id,{password : hashedPass});
-            res.status(200).json({message:'Password updated'})
+            const hashedPass = await bcrypt.hash(newpassword, salt);
+            await UserModel.findByIdAndUpdate(id, { password: hashedPass });
+            res.status(200).json({ message: 'Password updated' })
         }
     } catch (error) {
         res.status(500).json(error)

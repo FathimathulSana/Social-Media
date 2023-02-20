@@ -49,7 +49,6 @@ export const verifyotp = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             status: "FAILED",
             message: error.message
