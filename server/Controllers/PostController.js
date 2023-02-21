@@ -99,29 +99,6 @@ export const reportPost = async (req, res) => {
     const response = await PostModel.findByIdAndUpdate(id, { $push: { reports: req.body } })
 }
 
-//show reported posts for admin
-export const getReportedPosts = async (req, res) => {
-    const posts = await PostModel.find()
-    const reportedPosts = posts.filter((post) => post.reports.length > 0)
-    res.status(200).json(reportedPosts)
-}
-
-export const reportedPostRemove = async (req, res) => {
-    const postId = req.params.id
-    try {
-        const removedFieldUpdate = await PostModel.findById(postId)
-        if (removedFieldUpdate.removed) {
-            const response = await removedFieldUpdate.updateOne({ $set: { removed: false } })
-            res.status(200).json("post unblocked")
-        } else {
-            const response = await removedFieldUpdate.updateOne({ $set: { removed: true } })
-            res.status(200).json("post blocked successfully")
-        }
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
 export const editPost = async (req, res) => {
     try {
         const data = await PostModel.findOneAndUpdate({ _id: req.body.postId }, { $set: { description: req.body.description } })

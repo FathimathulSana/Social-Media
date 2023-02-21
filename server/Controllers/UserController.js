@@ -58,21 +58,6 @@ export const updateUser = async (req, res) => {
     }
 }
 
-//Delete User
-export const deleteUser = async (req, res) => {
-    const id = req.params.id;
-    const { currentUserId, currentUserAdminStatus } = req.body;
-    if (currentUserId === id || currentUserAdminStatus) {
-        try {
-            await UserModel.findByIdAndDelete(id)
-            res.status(200).json("User deleted Successfully")
-        } catch (error) {
-            res.status(500).json(error)
-        }
-    } else {
-        res.status(403).json("Access Denied! You can only delete your own profile")
-    }
-}
 
 //Follow User
 export const followUser = async (req, res) => {
@@ -134,18 +119,7 @@ export const getUserData = async (req, res) => {
     res.json(peopleData.slice(0, 10))
 }
 
-//block user
-export const blockuser = async (req, res) => {
-    const active = req.body.data
-    try {
 
-        active ? await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: false } }, { new: true }) :
-            await UserModel.findByIdAndUpdate(req.params.id, { $set: { active: true } }, { new: true });
-        active ? res.status(200).json('user blocked') : res.status(200).json('user unblocked');
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
 
 //request for setting user account verified with blue tick
 export const isFamousRequest = async (req, res) => {
@@ -185,25 +159,5 @@ export const removeNotification = async (req,res) => {
         res.status(500).json(error)
     }
 }
-//get verify notifications for admin
-export const getVerifyNotifications = async (req, res) => {
-    try {
-        const adminNotifications = await AdminnotificationModel.find()
-        const verificationNotifications = adminNotifications[0].verificationRequests
-        res.status(200).json(verificationNotifications)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
 
-//admin making user is famous true
-export const makeIsFamous = async (req, res) => {
-    const id = req.params.id
-    try {
-        const userUpdated = await UserModel.findByIdAndUpdate(id, { $set: { isFamous: "true" } }, { new: true })
-        const adminNotificationsUpdated = await AdminnotificationModel.updateOne({ $pull: { verificationRequests: id } })
-        res.status(200).json("user acount is verified now")
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
+

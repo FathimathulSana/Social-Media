@@ -1,5 +1,6 @@
 import express from "express";
-import { blockuser, deleteUser, followUser, getAllUsers, getNotifications, getUser, getUserData, getVerifyNotifications, isFamousRequest, makeIsFamous, removeNotification, unFollowUser, updateUser } from "../Controllers/UserController.js";
+import { blockuser, getVerifyNotifications, makeIsFamous } from "../Controllers/AdminController.js";
+import {  followUser, getAllUsers, getNotifications, getUser, getUserData, isFamousRequest, removeNotification, unFollowUser, updateUser } from "../Controllers/UserController.js";
 import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 const router = express.Router();
 
@@ -7,7 +8,6 @@ router.use(authMiddleWare)
 router.get('/', getAllUsers)
 router.get('/:id', getUser)
 router.put('/:id', updateUser)
-router.delete('/:id', deleteUser)
 router.put('/:id/follow', followUser)
 router.put('/:id/unfollow', unFollowUser)
 router.post('/blockuser/:id', blockuser)

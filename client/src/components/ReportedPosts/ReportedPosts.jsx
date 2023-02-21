@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 export default function BasicTable({ allReportedPosts, setReportedPostsUseEffect }) {
     const dispatch = useDispatch();
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+    const serverVideos = process.env.REACT_APP_PUBLIC_VIDEOS;
 
     const handlePostRemove = async (postId) => {
         const response = await dispatch(reportedPostRemove(postId));
@@ -41,15 +42,30 @@ export default function BasicTable({ allReportedPosts, setReportedPostsUseEffect
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     {post.image ? (
-                                        <img style={{ width: "60px" }} src={serverPublic + post.image} />
+                                        <a href={serverPublic + post.image} target="_blank" rel="noreferrer">
+                                            <img style={{ width: "60px" }} src={serverPublic + post.image} />
+                                        </a>
                                     ) : (
                                         post.description
                                     )}
+                                    <br />
+                                    {post.video ? (
+                                        <a
+                                            href={serverVideos + post.video}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            style={{ color: "transparent" }}
+                                        >
+                                            <span style={{ cursor: "pointer", color: "black" }}>
+                                                Reported video(Click here)
+                                            </span>
+                                        </a>
+                                    ) : (
+                                        ""
+                                    )}
                                 </TableCell>
 
-                                <TableCell>
-                                    {post.reports.length}
-                                </TableCell>
+                                <TableCell>{post.reports.length}</TableCell>
 
                                 <TableCell align="left">
                                     {post.reports.map((report, index) => (
