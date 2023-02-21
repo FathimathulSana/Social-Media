@@ -4,7 +4,10 @@ export const uploadImage = (data) => async (dispatch) => {
     try {
         await UploadApi.uploadImage(data)
     } catch (error) {
-        console.log(error);
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }
 
@@ -12,7 +15,10 @@ export const uploadVideo = (data) => async (dispatch) => {
     try {
         await UploadApi.uploadVideo(data)
     } catch (error) {
-        console.log(error);
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }
 

@@ -4,7 +4,10 @@ export const createComment = (postId, comment, userId) => async (dispatch) => {
     try {
         return await CommentApi.createComment(postId, comment, userId)
     } catch (error) {
-        console.log(error);
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }
 
@@ -12,25 +15,31 @@ export const getComments = (postId) => async (dispatch) => {
     try {
         return await CommentApi.getComments(postId)
     } catch (error) {
-        console.log(error);
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }
 
-export const deleteComment = (commentId) => async (dispatch)=>{
+export const deleteComment = (commentId) => async (dispatch) => {
     try {
         return await CommentApi.deleteComment(commentId)
     } catch (error) {
-        if(error.response.data === "token expired"){
-            
-            dispatch({type:"LOG_OUT"})
-           }
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }
 
-export const editComment  = (commentId,editData) => async (dispatch) =>{
+export const editComment = (commentId, editData) => async (dispatch) => {
     try {
-        return await CommentApi.editComment(commentId,editData)
+        return await CommentApi.editComment(commentId, editData)
     } catch (error) {
-        console.log(error);
+        if (error.response.data === "token expired") {
+
+            dispatch({ type: "LOG_OUT" })
+        }
     }
 }

@@ -31,8 +31,8 @@ export const adminLogin = (formData) => async (dispatch) => {
 
 export const resetPass = (email) => async (dispatch) => {
   try {
-   const {data} =  await AuthApi.resetPass(email)
-  return data;
+    const { data } = await AuthApi.resetPass(email)
+    return data;
   } catch (error) {
     return error;
   }

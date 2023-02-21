@@ -75,8 +75,8 @@ export const getNotifications = (userId) => async (dispatch) => {
     try {
         return UserApi.getNotifications(userId)
     } catch (error) {
-        if(error.response.data === 'token expired'){
-            dispatch({type : "LOG_OUT"})
+        if (error.response.data === 'token expired') {
+            dispatch({ type: "LOG_OUT" })
         }
     }
 }
