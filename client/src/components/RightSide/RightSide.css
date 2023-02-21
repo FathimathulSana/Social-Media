@@ -8,8 +8,9 @@
 .navIcons {
     margin-top: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between ;
 }
+
 .navIcons-chat {
     margin-top: 1rem;
     display: flex;
@@ -74,6 +75,7 @@
 
     .navIcons {
         display: flex;
+        justify-content: space-between;
     }
 
     .navIcons>div {

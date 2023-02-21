@@ -1,5 +1,6 @@
 import UserModel from "../Models/userModel.js";
 import AdminnotificationModel from "../Models/AdminnotificationModel.js";
+import UserNotifications from "../Models/UserNotificationModel.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 
@@ -86,6 +87,13 @@ export const followUser = async (req, res) => {
             if (!followUser.followers.includes(_id)) {
                 await followUser.updateOne({ $push: { followers: _id } })
                 await followingUser.updateOne({ $push: { following: id } })
+                const notification = new UserNotifications({
+                    recipientId : followUser,
+                    senderId : followingUser ,
+                    message : `@${followingUser.username} started following you`,
+                    type : 'follow'
+                });
+                await notification.save();
                 res.status(200).json("User followed!")
             } else {
                 res.status(403).json("User is Already followed by you")
@@ -156,6 +164,27 @@ export const isFamousRequest = async (req, res) => {
     }
 }
 
+//get notifications
+export const getNotifications = async(req,res) => {
+    try {
+ const recipientId = req.params.id;
+ const notifications = await UserNotifications.find({recipientId}).sort({createdAt : -1});
+ res.json(notifications)
+    } catch (error) {
+        res.status(500).send('Internal Server error')
+    }
+}
+//remove notification
+export const removeNotification = async (req,res) => {
+    try {
+        const id = req.params.id
+        const notificationRemoved = await UserNotifications.findByIdAndDelete(id)
+        res.status(200).json("Notification Removed")
+
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 //get verify notifications for admin
 export const getVerifyNotifications = async (req, res) => {
     try {

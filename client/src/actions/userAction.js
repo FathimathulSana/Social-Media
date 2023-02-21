@@ -71,6 +71,16 @@ export const getVerifyNotifications = () => async (dispatch) => {
     }
 }
 
+export const getNotifications = (userId) => async (dispatch) => {
+    try {
+        return UserApi.getNotifications(userId)
+    } catch (error) {
+        if(error.response.data === 'token expired'){
+            dispatch({type : "LOG_OUT"})
+        }
+    }
+}
+
 
 export const makeIsFamous = (id) => async (dispatch) => {
     try {
@@ -96,11 +106,9 @@ export const getAllUser = () => async (dispatch) => {
     dispatch({ type: "FETCH_ALL_USERS" })
     try {
         const { data } = await UserApi.getAllUser();
-        console.log(data, "success aaykka");
         dispatch({ type: "ALL_USERS_FETCHED", data: data })
     } catch (error) {
         dispatch({ type: "ALL_USERS_FETCHING_FAIL" })
-        console.log(error, "ivide common");
     }
 }
 

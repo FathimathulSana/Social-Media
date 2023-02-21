@@ -26,12 +26,10 @@ const MainDash = ({ mainDashItem }) => {
             setUsersData(users.data);
         };
         fetchUsersData();
-        console.log("working mainDash");
     }, [userActive]);
 
     useEffect(() => {
         const fetchPostData = async () => {
-            console.log("post fetching");
             const Posts = await dispatch(getReportedPosts());
             setAllReportedPosts(Posts.data);
         };

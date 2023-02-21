@@ -4,7 +4,9 @@ import axios from 'axios'
 const API = axios.create({ baseURL: 'http://localhost:5050' });
 
 API.interceptors.request.use((req) => {
-    if (localStorage.getItem('profile')) {
+    if (localStorage.getItem('adminProfile')) {
+        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('adminProfile')).token}`
+    }else{
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
     }
     return req
@@ -25,6 +27,10 @@ export const createChat = ((data) => API.post('/chat/', data));
 export const editPost = (postId,data) => API.post(`/post/edit/post`,data)
 
 export const sendVerifiyRequest = (userId) => API.post(`/user/isfamousrequest/${userId}`)
+
+export const getNotifications = (userId) => API.get(`/user/getnotifications/${userId}`)
+
+export const removeNotification = (id) => API.delete(`/user/removenotification/${id}`)
 
 //request by admin
 export const getUserData = (query) => API.post(`/user/getdata`, { data: query })

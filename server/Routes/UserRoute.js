@@ -1,5 +1,5 @@
 import express from "express";
-import { blockuser, deleteUser, followUser, getAllUsers, getUser, getUserData, getVerifyNotifications, isFamousRequest, makeIsFamous, unFollowUser, updateUser } from "../Controllers/UserController.js";
+import { blockuser, deleteUser, followUser, getAllUsers, getNotifications, getUser, getUserData, getVerifyNotifications, isFamousRequest, makeIsFamous, removeNotification, unFollowUser, updateUser } from "../Controllers/UserController.js";
 import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 const router = express.Router();
 
@@ -13,6 +13,8 @@ router.put('/:id/unfollow', unFollowUser)
 router.post('/blockuser/:id', blockuser)
 router.post('/getdata', getUserData)
 router.post('/isfamousrequest/:id', isFamousRequest)
+router.get('/getnotifications/:id',getNotifications)
+router.delete('/removenotification/:id',removeNotification)
 router.post('/getverifynotifications', getVerifyNotifications)
 router.post('/makeisfamous/:id', makeIsFamous)
 
