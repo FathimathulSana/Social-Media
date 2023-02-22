@@ -19,7 +19,8 @@ import { AiFillEdit } from "react-icons/ai";
 import { Dropdown } from "antd";
 import PostEditModal from "../PostEditModal/PostEditModal";
 
-const Post = ({ data }) => {
+const Post = ({ data,refresh,setRefresh }) => {
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.authReducer.authData);
@@ -146,6 +147,7 @@ const Post = ({ data }) => {
             {<PostDeleteModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={data._id} currentUser={user._id} />}
             {
                 <PostEditModal
+                    setRefresh={setRefresh}
                     editModalOpen={editModalOpen}
                     setEditModalOpen={setEditModalOpen}
                     userId={user._id}

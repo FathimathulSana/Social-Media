@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Posts.css";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post/Post";
@@ -15,6 +15,7 @@ const override = {
 };
 
 const Posts = () => {
+    const [refresh,setRefresh]=useState(false);
     const params = useParams();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.authReducer.authData);
@@ -24,7 +25,7 @@ const Posts = () => {
 
     useEffect(() => {
         dispatch(getTimelinePosts(user._id));
-    }, []);
+    }, [refresh]);
     if (params.id) posts = posts.filter((post) => post.userId === params.id);
     return (
         <div className="Posts">
@@ -32,7 +33,7 @@ const Posts = () => {
                 <FadeLoader color="black" cssOverride={override} loading={loading} />
             ) : (
                 posts.map((post, id) => {
-                    return <Post data={post} id={id} />;
+                    return <Post refresh={refresh} setRefresh={setRefresh} data={post} id={id} />;
                 })
             )}
         {posts.length === 0 && !loading && <NoPost />}

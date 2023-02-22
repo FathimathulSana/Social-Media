@@ -24,7 +24,7 @@ const ProfileCard = ({ location }) => {
 
     useEffect(() => {
         setProfile(user);
-    }, [user]);
+    }, [user,params]);
 
     return (
         <div className="ProfileCard">

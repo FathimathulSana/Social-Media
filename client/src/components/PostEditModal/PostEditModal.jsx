@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 import '../ReportPostModal/ReportPostModal.css'
 import { editPost } from '../../api/UserRequest';
 
-function PostEditModal({editModalOpen,setEditModalOpen,userId,postId}) {
+function PostEditModal({editModalOpen,setEditModalOpen,setRefresh,userId,postId}) {
     const [value, setValue] = useState(null)
     const dispatch = useDispatch()
     const editSubmit=async()=>{
@@ -20,6 +20,7 @@ function PostEditModal({editModalOpen,setEditModalOpen,userId,postId}) {
        } 
        console.log(editData,"edit data");
        setEditModalOpen(false)
+       setRefresh((pre)=>!pre)
        const response = await dispatch(editPost(postId,editData)) 
     }
   return (

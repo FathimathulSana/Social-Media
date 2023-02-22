@@ -8,8 +8,6 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordion from "@mui/material/Accordion";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { useDispatch, useSelector } from "react-redux";
-import { message, notification } from "antd";
-import { updatePassword } from "../../api/AuthRequests";
 import { getNotifications } from "../../actions/userAction";
 import { removeNotification } from "../../api/UserRequest";
 import { useNavigate } from "react-router";
