@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
-
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { blockUser } from "../../actions/userAction";

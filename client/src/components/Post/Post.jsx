@@ -3,7 +3,7 @@ import "./Post.css";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { format } from "timeago.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { likePost } from "../../api/PostRequest";
 import { getUser } from "../../api/UserRequest";
@@ -19,9 +19,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { Dropdown } from "antd";
 import PostEditModal from "../PostEditModal/PostEditModal";
 
-const Post = ({ data,refresh,setRefresh }) => {
-    
-    const dispatch = useDispatch();
+const Post = ({ data, refresh, setRefresh }) => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.authReducer.authData);
     const [liked, setLiked] = useState(data.likes.includes(user._id));
@@ -51,7 +49,6 @@ const Post = ({ data,refresh,setRefresh }) => {
     const reportPostFn = () => {
         setReportPostModalOpen(true);
     };
-
     const items = [
         {
             key: "1",

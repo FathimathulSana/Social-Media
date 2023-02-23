@@ -13,7 +13,6 @@ const userReducer = (
             return { ...state, loading: true, error: false };
 
         case "ALL_USERS_FETCHED":
-            console.log(action.data,"userData");
             return { ...state, userData: action.data, loading: false, error: false };
 
         case "ALL_USERS_FETCHING_FAIL":

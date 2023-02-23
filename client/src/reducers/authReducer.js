@@ -2,6 +2,7 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
   switch (action.type) {
     case "AUTH_START":
       return { ...state, loading: true, error: false };
+
     case "AUTH_SUCCESS":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
 
@@ -22,16 +23,12 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
 
     case "FOLLOW_USER":
       return { ...state, authData: { ...state.authData, user: { ...state.authData.user, following: [...state.authData.user.following, action.data] } } }
+
     case "UNFOLLOW_USER":
       return { ...state, authData: { ...state.authData, user: { ...state.authData.user, following: [...state.authData.user.following.filter((personId) => personId !== action.data)] } } }
 
     case "SEND_ISFAMOUS_REQUEST":
-      return { ...state, authData: { ...state.authData, user: { ...state.authData.user, isFamous: "pending" } } };
-
-    case "LOG_OUT":
-      localStorage.clear();
-      return { ...state, authData: null, loading: false, error: false, message: null }
-
+      return { ...state, authData: { ...state.authData, user: { ...state.authData.user, isFamous: "pending" } } }
 
     case "RESET":
       localStorage.clear();

@@ -4,11 +4,11 @@ import { useLocation, useParams } from "react-router";
 import Posts from "../Posts/Posts";
 import PostShare from "../PostShare/PostShare";
 import "./PostSide.css";
+
 const PostSide = () => {
     const params = useParams();
     const location = useLocation();
     const { user } = useSelector((state) => state.authReducer.authData);
-
     return (
         <div className="PostSide">
             {location.pathname === "/home" ? <PostShare /> : ""}

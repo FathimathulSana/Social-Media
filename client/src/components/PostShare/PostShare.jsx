@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import "./PostShare.css";
 import { UilScenery, UilPlayCircle, UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { uploadImage, uploadVideo } from "../../actions/uploadAction";
 import { uploadPost } from "../../actions/uploadAction";
+import "./PostShare.css";
 
 const PostShare = () => {
     const loading = useSelector((state) => state.postReducer.uploading);
@@ -87,9 +87,7 @@ const PostShare = () => {
             dispatch(uploadPost(newPost));
             reset();
         } else if (video) {
-            if (
-                !(video.type === "video/mp4")
-            ) {
+            if (!(video.type === "video/mp4")) {
                 return toast("oops! only support mp4", {
                     icon: "🙄",
                     style: {
@@ -106,7 +104,7 @@ const PostShare = () => {
             newPost.video = filename;
             try {
                 dispatch(uploadVideo(data));
-            } catch(error) {
+            } catch (error) {
                 console.log(error);
             }
             dispatch(uploadPost(newPost));
@@ -144,29 +142,28 @@ const PostShare = () => {
                 </div>
                 {image && (
                     <div className="previewImage">
-                        <UilTimes 
-                          onClick={() => {
-                            setImage(null);
-                            imageRef.current.value = null;
-                          }
-                          } />
-                          
-                       {image && <img src={URL.createObjectURL(image)} alt="" />}
-                       
+                        <UilTimes
+                            onClick={() => {
+                                setImage(null);
+                                imageRef.current.value = null;
+                            }}
+                        />
+
+                        {image && <img src={URL.createObjectURL(image)} alt="" />}
                     </div>
                 )}
                 {video && (
                     <div className="previewVdo">
-                        <UilTimes 
-                          onClick={() => {
-                            setVideo(null);
-                            videoRef.current.value = null;
-                          }
-                          } />    
-                    {video && (
-                        <video controls>
-                        <source src={URL.createObjectURL(video)} />
-                        </video>
+                        <UilTimes
+                            onClick={() => {
+                                setVideo(null);
+                                videoRef.current.value = null;
+                            }}
+                        />
+                        {video && (
+                            <video controls>
+                                <source src={URL.createObjectURL(video)} />
+                            </video>
                         )}
                     </div>
                 )}

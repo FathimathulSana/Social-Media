@@ -10,7 +10,6 @@ import { adminLogOut } from "../../actions/AuthAction";
 
 const Sidebar = ({ setMainDashItem }) => {
     const dispatch = useDispatch();
-
     const [selected, setSelected] = useState(0);
     useEffect(() => {
         setMainDashItem(selected);

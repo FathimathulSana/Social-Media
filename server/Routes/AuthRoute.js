@@ -11,7 +11,7 @@ router.post('/resendotp', resendOtp)
 router.post('/adminLogin', adminLogin);
 router.post('/forgotpassword', resetPass)
 router.put('/resetPasswordForm', resetPassword)
-router.post('/updatepass/:id',updatePassword)
+router.post('/updatepass/:id', updatePassword)
 
 
 export default router

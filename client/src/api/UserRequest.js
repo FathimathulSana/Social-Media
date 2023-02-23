@@ -6,9 +6,9 @@ const API = axios.create({ baseURL: 'http://localhost:5050' });
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('adminProfile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('adminProfile')).token}`
-    }else if(localStorage.getItem('profile')){
+    } else if (localStorage.getItem('profile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
-    }else{
+    } else {
         localStorage.clear();
     }
     return req
@@ -26,7 +26,7 @@ export const unFollowUser = (id, data) => API.put(`/user/${id}/unfollow`, data)
 
 export const createChat = ((data) => API.post('/chat/', data));
 
-export const editPost = (postId,data) => API.post(`/post/edit/post`,data)
+export const editPost = (postId, data) => API.post(`/post/edit/post`, data)
 
 export const sendVerifiyRequest = (userId) => API.post(`/user/isfamousrequest/${userId}`)
 

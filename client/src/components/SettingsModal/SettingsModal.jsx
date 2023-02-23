@@ -7,9 +7,8 @@ import { updatePassword } from "../../api/AuthRequests";
 
 function SettingsModal({ settingModalOpend, setSettingModalOpened }) {
     const { user } = useSelector((state) => state.authReducer.authData);
-
     const [formData, setFormData] = useState("");
-
+    
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };

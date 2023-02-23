@@ -44,9 +44,7 @@ function NotificationModal({ notificationModal, setNotificationModal }) {
     const navigate = useNavigate();
     const [expanded, setExpanded] = React.useState(0);
     const [allNotifications, setAllNotifications] = useState([]);
-
     const { user } = useSelector((state) => state.authReducer.authData);
-    const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
     useEffect(() => {
         const fetchNotifications = async () => {

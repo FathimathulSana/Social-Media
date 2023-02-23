@@ -5,4 +5,18 @@ import postReducer from "./postReducer";
 import adminAuthReducer from "./adminAuthReducer";
 import userReducer from "./userReducer";
 
-export const reducers = combineReducers({ authReducer, postReducer , adminAuthReducer ,userReducer })
+const appReducer = combineReducers({
+  authReducer,
+  postReducer,
+  adminAuthReducer,
+  userReducer
+})
+
+export const reducers = (state, action) => {
+  if (action.type === "LOG_OUT") {
+    localStorage.clear();
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
+

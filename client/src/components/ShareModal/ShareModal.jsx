@@ -3,7 +3,6 @@ import PostShare from "../PostShare/PostShare";
 
 function ShareModal({ modalOpened, setModalOpened }) {
     const theme = useMantineTheme();
-
     return (
         <Modal
             overlayColor={theme.colorScheme === "dark" ? theme.colors.dark[9] : theme.colors.gray[2]}

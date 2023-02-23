@@ -7,7 +7,7 @@ import { resetPassword } from "../../api/AuthRequests";
 
 const ResetForm = (props) => {
     const params = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
 
@@ -25,13 +25,13 @@ const ResetForm = (props) => {
         }
         try {
             const response = await resetPassword(token, password);
-            if (!response?.data?.error){
-                toast.success(response.data.message)
-                navigate("/")
+            if (!response?.data?.error) {
+                toast.success(response.data.message);
+                navigate("/");
             }
         } catch (error) {
             console.log(error.response.data);
-            return toast.error(error.response.data.message)
+            return toast.error(error.response.data.message);
         }
     };
     return (

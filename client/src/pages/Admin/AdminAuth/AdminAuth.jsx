@@ -2,29 +2,22 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLogin } from "../../../actions/AuthAction";
 import Logo from "../../../img/logo.png";
-
-import '../../Auth/Auth.css'
+import "../../Auth/Auth.css";
 
 const AdminAuth = () => {
-    const [userData, setUserData] = useState({ username: "", password: ""});
-
+    const [userData, setUserData] = useState({ username: "", password: "" });
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.adminAuthReducer.loading);
-    const userDataChange=(event)=> {
+    const userDataChange = (event) => {
         setUserData((prevState) => {
-           return({...prevState,[event.target.name]:event.target.value})
-       })
-    }
+            return { ...prevState, [event.target.name]: event.target.value };
+        });
+    };
     const submitData = (event) => {
-        
         event.preventDefault();
-    
 
-         dispatch(adminLogin(userData));
-             
-        
-            
-    }
+        dispatch(adminLogin(userData));
+    };
     return (
         <div className="Auth">
             <div className="a-left">
@@ -37,7 +30,6 @@ const AdminAuth = () => {
                     <h3>Admin Login</h3>
 
                     <div>
-
                         <input
                             type="text"
                             placeholder="Username"
@@ -59,7 +51,6 @@ const AdminAuth = () => {
                             required
                         />
                     </div>
-                    
 
                     <button className="button infoButton" type="submit" disabled={loading}>
                         {loading ? "Loading..." : "Login"}

@@ -50,8 +50,7 @@ const LogoSearch = ({ setNewUser, place }) => {
                               <p onClick={() => setNewUser(person)} style={{ cursor: "pointer" }}>
                                   {person.username}
                               </p>
-                              <hr style={{marginTop:"15px", width: "100%", border: "0.1px solid #ececec" }} />
-
+                              <hr style={{ marginTop: "15px", width: "100%", border: "0.1px solid #ececec" }} />
                           </>
                       ))
                     : data.map((person) => (
@@ -73,8 +72,7 @@ const LogoSearch = ({ setNewUser, place }) => {
                                   />
                                   {person.username}
                               </Link>
-                              <hr style={{marginTop:"15px", width: "100%", border: "0.1px solid #ececec" }} />
-
+                              <hr style={{ marginTop: "15px", width: "100%", border: "0.1px solid #ececec" }} />
                           </>
                       ))}
             </div>

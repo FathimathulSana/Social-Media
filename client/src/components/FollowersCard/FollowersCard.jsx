@@ -39,7 +39,7 @@ const FollowersCard = ({ locality }) => {
                     <h3>People you may know</h3>
                     {persons ? (
                         <>
-                            {persons.slice(0,next).map((person, id) => {
+                            {persons.slice(0, next).map((person, id) => {
                                 if (person._id !== user._id) {
                                     return <User person={person} list="people" key={id} id={person._id} />;
                                 }

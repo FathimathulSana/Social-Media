@@ -15,7 +15,7 @@ const override = {
 };
 
 const Posts = () => {
-    const [refresh,setRefresh]=useState(false);
+    const [refresh, setRefresh] = useState(false);
     const params = useParams();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.authReducer.authData);
@@ -36,8 +36,8 @@ const Posts = () => {
                     return <Post refresh={refresh} setRefresh={setRefresh} data={post} id={id} />;
                 })
             )}
-        {posts.length === 0 && !loading && <NoPost />}
-        {posts.length > 0 && !loading && <AllCaughtUp /> }
+            {posts.length === 0 && !loading && <NoPost />}
+            {posts.length > 0 && !loading && <AllCaughtUp />}
         </div>
     );
 };

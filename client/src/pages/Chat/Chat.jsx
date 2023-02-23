@@ -95,7 +95,7 @@ const Chat = () => {
                         <Link style={{ color: "inherit" }} to="../home">
                             <ImHome size={33} className="icon" />
                         </Link>
-                        <AiFillSetting size={33} className="icon" onClick={()=>setSettingModalOpened(true)} />
+                        <AiFillSetting size={33} className="icon" onClick={() => setSettingModalOpened(true)} />
                         <Link style={{ color: "inherit" }} to={`/profile/${user._id}`}>
                             <IoPersonCircle size={34} className="icon" />
                         </Link>
@@ -115,18 +115,8 @@ const Chat = () => {
                     receiveMessage={receiveMessage}
                 />
             </div>
-            {
-              <NotificationModal
-                  notificationModal = {notificationModal}
-                  setNotificationModal = {setNotificationModal}
-                  />
-            }
-               {
-                <SettingsModal
-                    settingModalOpend={settingModalOpend}
-                    setSettingModalOpened={setSettingModalOpened}
-                />
-            }
+            {<NotificationModal notificationModal={notificationModal} setNotificationModal={setNotificationModal} />}
+            {<SettingsModal settingModalOpend={settingModalOpend} setSettingModalOpened={setSettingModalOpened} />}
         </div>
     );
 };

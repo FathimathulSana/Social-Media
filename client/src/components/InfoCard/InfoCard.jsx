@@ -36,25 +36,19 @@ const InfoCard = () => {
         dispatch(logOut());
     };
 
-    const navigate = useNavigate()
-    const handleChat = async(data) => {
-        await UserApi.createChat(data)
-        navigate('/chat')
-    }
+    const navigate = useNavigate();
+    const handleChat = async (data) => {
+        await UserApi.createChat(data);
+        navigate("/chat");
+    };
     return (
         <div className="InfoCard">
             <div className="InfoHead">
                 <h4>Profile info</h4>
                 {user._id === profileUserId ? (
                     <div>
-                        <UilPen
-                         width="2rem" 
-                         height="1.2rem" 
-                         onClick={() => setModalOpened(true)} />
-                        <ProfileModal
-                         modalOpened={modalOpened}
-                         setModalOpened={setModalOpened}
-                         data={user} />
+                        <UilPen width="2rem" height="1.2rem" onClick={() => setModalOpened(true)} />
+                        <ProfileModal modalOpened={modalOpened} setModalOpened={setModalOpened} data={user} />
                     </div>
                 ) : (
                     ""
@@ -72,7 +66,9 @@ const InfoCard = () => {
                 <span>
                     <b>Lives in </b>
                 </span>
-                <span>{profileUser?.livesin} {profileUser?.country}</span>
+                <span>
+                    {profileUser?.livesin} {profileUser?.country}
+                </span>
             </div>
 
             <div className="info">
@@ -82,21 +78,23 @@ const InfoCard = () => {
                 <span>{profileUser?.worksAt}</span>
             </div>
             {params.id === user._id ? (
-               <button className="button logout-button" onClick={handleLogOut}>
-               Logout
-              </button>             
+                <button className="button logout-button" onClick={handleLogOut}>
+                    Logout
+                </button>
             ) : (
-                <button className="button logout-button" onClick={() => {
-                    const data = {
-                        senderId : user._id,
-                        receiverId : params.id
-                    }
-                    handleChat(data)
-                }}>
-                Message
-               </button>  
+                <button
+                    className="button logout-button"
+                    onClick={() => {
+                        const data = {
+                            senderId: user._id,
+                            receiverId: params.id,
+                        };
+                        handleChat(data);
+                    }}
+                >
+                    Message
+                </button>
             )}
-
         </div>
     );
 };

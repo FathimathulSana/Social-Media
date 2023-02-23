@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../api/UserRequest";
-import blueTick from '../../img/tick.png'
+import blueTick from "../../img/tick.png";
 import "./ProfileCard.css";
 
 const ProfileCard = ({ location }) => {
@@ -24,7 +24,7 @@ const ProfileCard = ({ location }) => {
 
     useEffect(() => {
         setProfile(user);
-    }, [user,params]);
+    }, [user, params]);
 
     return (
         <div className="ProfileCard">
@@ -42,7 +42,8 @@ const ProfileCard = ({ location }) => {
             </div>
             <div className="ProfileName">
                 <span>
-                    {profile?.firstname} {profile?.lastname}<span>{profile?.isFamous ==="true"?<img className="verifiedBlueTick" src={blueTick} /> : ""}</span>
+                    {profile?.firstname} {profile?.lastname}
+                    <span>{profile?.isFamous === "true" ? <img className="verifiedBlueTick" src={blueTick} alt= " " /> : ""}</span>
                 </span>
                 <span>{profile?.worksAt ? profile?.worksAt : "Write about yourself"}</span>
             </div>

@@ -1,6 +1,6 @@
-import {RiDashboardFill} from 'react-icons/ri'
-import {FaUsers} from 'react-icons/fa'
-import {MdPhotoLibrary} from 'react-icons/md'
+import { RiDashboardFill } from 'react-icons/ri'
+import { FaUsers } from 'react-icons/fa'
+import { MdPhotoLibrary } from 'react-icons/md'
 
 export const SidebarData = [
     {

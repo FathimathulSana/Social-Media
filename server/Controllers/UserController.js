@@ -73,10 +73,10 @@ export const followUser = async (req, res) => {
                 await followUser.updateOne({ $push: { followers: _id } })
                 await followingUser.updateOne({ $push: { following: id } })
                 const notification = new UserNotifications({
-                    recipientId : followUser,
-                    senderId : followingUser ,
-                    message : `@${followingUser.username} started following you`,
-                    type : 'follow'
+                    recipientId: followUser,
+                    senderId: followingUser,
+                    message: `@${followingUser.username} started following you`,
+                    type: 'follow'
                 });
                 await notification.save();
                 res.status(200).json("User followed!")
@@ -139,17 +139,17 @@ export const isFamousRequest = async (req, res) => {
 }
 
 //get notifications
-export const getNotifications = async(req,res) => {
+export const getNotifications = async (req, res) => {
     try {
- const recipientId = req.params.id;
- const notifications = await UserNotifications.find({recipientId}).sort({createdAt : -1});
- res.json(notifications)
+        const recipientId = req.params.id;
+        const notifications = await UserNotifications.find({ recipientId }).sort({ createdAt: -1 });
+        res.json(notifications)
     } catch (error) {
         res.status(500).send('Internal Server error')
     }
 }
 //remove notification
-export const removeNotification = async (req,res) => {
+export const removeNotification = async (req, res) => {
     try {
         const id = req.params.id
         const notificationRemoved = await UserNotifications.findByIdAndDelete(id)
